@@ -1,4 +1,4 @@
-# Server_Setup.md
+# Server Setup
 
 ## Description
 
@@ -12,7 +12,6 @@ This first module will document the setup process I used to build the base serve
 - [Linux KVM](https://linux-kvm.org/page/Main_Page)
 - [QEMU](https://www.qemu.org/)
 - [Libvirt](https://libvirt.org/apps.html)
-- [Cockpit](https://cockpit-project.org/)
 - [Terraform](https://www.terraform.io/)
 
 
@@ -244,27 +243,6 @@ virsh pool-info default
 virsh pool-list --all
 ```
 
-### Cockpit Setup
-
-I'm using [Cockpit](https://cockpit-project.org/) for a graphical WebUI which is free and easy to setup. We will be using IaC tools to automate the deployment of our virtual environments, but it is nice to have a graphical interface to view the resources and their cofigurations or connect to the consoles in case you have any issues or for troubleshooting.
-
-```bash
-# Install Cockpit
-. /etc/os-release
-sudo apt update && sudo apt install -y -t ${VERSION_CODENAME}-backports cockpit cockpit-machines
-
-# Enable cockpit to autostart and start
-sudo systemctl enable cockpit.socket
-sudo systemctl start cockpit
-sudo systemctl status cockpit
-
-# Reboot for fwupd-refresh down
-sudo reboot now
-
-# Test URL
-https://<server-hostname or ip-address>:9090/system
-```
-
 ### Terraform Installation:
 
 - Install Linux packages (`gnupg`, `software-properties-common`, `mkisofs`):
@@ -316,6 +294,7 @@ terraform -help plan
 
 -----
 
+
 ### Resources
 
 #### Repo Table of Contents:
@@ -326,10 +305,16 @@ terraform -help plan
 
 - [Terraform Ubuntu Test](./Terraform_Ubuntu_Test.md)
 
+- [Optional Installs](./Terraform_Ubuntu_Test.md)
+
+-----
+
 
 #### GitHub Repo Information:
 
 GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 
 Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
+
+-----
 
