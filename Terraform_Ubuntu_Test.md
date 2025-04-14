@@ -97,7 +97,7 @@ terraform apply
 terraform destroy
 ```
 
-## :party_popper: **Congratulations you have completed your first IaC deployment using Terraform**
+## **🎉 Congratulations you have completed your first IaC deployment using Terraform**
 
 -----
 
