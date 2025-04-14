@@ -288,7 +288,7 @@ sudo apt update && sudo apt install -y terraform
 terraform -help plan
 ```
 
-## :exclamation: **At this point your system is setup and ready to `virtualize`** :exclamation:
+## :party_popper: **At this point your system is setup and ready to `virtualize`**
 
 ### [Next Step - Terraform Ubuntu Test](./Terraform_Ubuntu_Test.md)
 
