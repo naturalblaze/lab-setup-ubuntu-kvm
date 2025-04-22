@@ -115,11 +115,11 @@ Key Aspects:
 
 #### Repo Table of Contents:
 
-- [Home](./README.md)
+- [Home](../../README.md)
 
-- [Server Setup](./Server_Setup.md)
+- [Server Setup](../../Server_Setup.md)
 
-- [Optional Installs](./Terraform_Ubuntu_Test.md)
+- [Optional Installs](../../Terraform_Ubuntu_Test.md)
 
 - Terraform Deployments:
 
