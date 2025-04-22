@@ -1,0 +1,16 @@
+# Variable file for ubuntu_vm workspace
+libvirt_pool_path = "/var/lib/libvirt/images/terraform/ubuntu-test"
+ubuntu_img_url    = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+hostname          = "<hostname>"
+packages          = ["qemu-guest-agent"]
+cpus              = "<number-of-cpus>"
+memory            = "<amount-of-memory>"
+root_pwd          = "<root-password>"
+username          = "<username>"
+ssh_public_key    = "~/.ssh/<your-ssh-key>.pub"
+dhcp              = "<true|false>"
+network     = "<network-name>"
+ip_address  = "<ip-address>"
+subnet      = "<subnet-cidr>"
+gateway     = "<gateway-ip>"
+nameservers = ["<dns-server1>", "<dns-server2>"]

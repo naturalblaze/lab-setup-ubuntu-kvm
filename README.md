@@ -18,6 +18,8 @@ I wanted to create a lab environment where I could easily deploy and destroy vir
 
 - [Server Setup](./Server_Setup.md)
 
-- [Terraform Ubuntu Test](./Terraform_Ubuntu_Test.md)
-
 - [Optional Installs](./Terraform_Ubuntu_Test.md)
+
+- Terraform Deployments:
+
+    - [Ubuntu VM](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.

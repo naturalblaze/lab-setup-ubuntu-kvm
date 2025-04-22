@@ -1,0 +1,43 @@
+#cloud-config
+# vim: syntax=yaml
+# examples:
+# https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+# This is the configuration syntax that the write_files module
+# will know how to understand. encoding can be given b64 or gzip or (gz+b64).
+# The content will be decoded accordingly and then written to the path that is
+# provided.
+#
+# Note: Content strings here are truncated for example purposes.
+# bootcmd:
+#   - echo 192.168.10.5 mb-tower01 >> /etc/hosts
+
+package_reboot_if_required: true
+package_update: true
+package_upgrade: true
+packages:
+  - apt: ${packages}
+
+runcmd:
+  - [ systemctl, start, qemu-guest-agent ]
+  - [ systemctl, enable, qemu-guest-agent ]
+
+ssh_pwauth: True
+chpasswd:
+  list: |
+    root:${root_pwd}
+  expire: False
+
+users:
+  - name: ${username}
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+    groups: sudo
+
+final_message: |
+  cloud-init has finished
+  version: $version
+  timestamp: $timestamp
+  datasource: $datasource
+  uptime: $uptime
