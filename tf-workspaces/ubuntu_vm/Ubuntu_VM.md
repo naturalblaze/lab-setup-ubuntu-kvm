@@ -123,7 +123,7 @@ Key Aspects:
 
 - Terraform Deployments:
 
-    - [Ubuntu VM](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
+    - [Ubuntu VM](./Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
 
 -----
 
