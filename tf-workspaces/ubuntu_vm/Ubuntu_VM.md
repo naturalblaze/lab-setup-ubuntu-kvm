@@ -119,7 +119,7 @@ Key Aspects:
 
 - [Server Setup](../../Server_Setup.md)
 
-- [Optional Installs](../../Terraform_Ubuntu_Test.md)
+- [Optional Installs](../../Optional_Installs.md)
 
 - Terraform Deployments:
 
