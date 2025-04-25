@@ -10,6 +10,15 @@ This module will document some of the optional components I have installed. Thes
 - [Cockpit](https://cockpit-project.org/)
 - [GitHub](https://github.com/)
 - [VSCode](https://code.visualstudio.com/)
+- [Ansible](https://docs.ansible.com/)
+
+
+## Table of Contents
+
+- [Cockpit](#cockpit-setup)
+- [GitHub](#github-setup)
+- [VSCode](#vscode-setup)
+- [Ansible](#ansible-setup)
 
 
 ### Cockpit Setup
@@ -33,6 +42,7 @@ sudo reboot now
 https://<server-hostname or ip-address>:9090/system
 ```
 
+
 ### GitHub Setup
 
 > :exclamation: **Note:** This requires you already have a GitHub account.
@@ -52,6 +62,7 @@ mkdir ~/tf-workspaces
 cd ~/tf-workspaces
 git clone git@github.com:naturalblaze/lab-setup-ubuntu-kvm.git
 ```
+
 
 ### VSCode Setup
 
@@ -75,7 +86,6 @@ cat > ~/.ssh/id_ed25519 << EOF
 <Text from lab server id_ed25519 file>
 EOF
 ```
-
 
 - Open VSCode and download the `Remote - SSH` extension
 
@@ -101,6 +111,43 @@ EOF
     User <lab username>
     IdentityFile <path to id_ed25519>
   ```
+
+### Ansible Setup
+
+Ansible is a very powerful open-source agentless automation tool. You could in fact do all these same KVM deployments just using Ansible. I am mainly going to use it for installing software and configurations during our deployments as I find it easier to deploy these things via Ansible than through Terraform. 
+
+[Ansible Docs](https://docs.ansible.com/)
+
+- Update your system
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+- Install software properties common
+
+```bash
+sudo apt install software-properties-common -y
+```
+
+- Add Ansible Official PPA
+
+```bash
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+```
+
+- Install Ansible
+
+```bash
+sudo apt update && sudo apt-get -y install ansible
+```
+
+- Validate Ansible is installed
+
+```bash
+ansible --version
+```
+
 
 -----
 

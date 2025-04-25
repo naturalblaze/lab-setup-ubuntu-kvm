@@ -23,3 +23,27 @@ I wanted to create a lab environment where I could easily deploy and destroy vir
 - Terraform Deployments:
 
     - [Ubuntu VM](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
+
+
+## Repo Map:
+
+```text
+lab-setup-ubuntu-kvm/
+├── LICENSE
+├── Optional_Installs.md
+├── README.md
+├── Server_Setup.md
+└── tf-workspaces
+    └── ubuntu_vm
+        ├── data.tf
+        ├── output.tf
+        ├── provider.tf
+        ├── resource.tf
+        ├── templates
+        │   ├── cloud_init.yaml
+        │   ├── meta_data.yaml
+        │   └── network_config.yaml
+        ├── terraform.tfvars.example
+        ├── Ubuntu_VM.md
+        └── variables.tf
+```

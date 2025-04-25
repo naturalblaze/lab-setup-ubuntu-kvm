@@ -288,9 +288,10 @@ sudo apt update && sudo apt install -y terraform
 terraform -help plan
 ```
 
+
 ## **🎉 At this point your system is setup and ready to `virtualize`**
 
-### [Next Step - Terraform Ubuntu Test](./Terraform_Ubuntu_Test.md)
+### [Next Step - Ubuntu VM](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
 
 -----
 
