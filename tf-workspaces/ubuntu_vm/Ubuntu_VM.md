@@ -1,8 +1,16 @@
-# Ubuntu VM
+# Ubuntu VM with Terraform
+
+
+## Table of Contents
+
+- [Description](./Ubuntu_VM.md#description)
+
+- [Terraform VM Deployment](./Ubuntu_VM.md#terraform-vm-deployment)
+
 
 ## Description
 
-Deploy a simple Ubuntu Server VM to test your lab setup.
+Deploy a simple Ubuntu Server VM with Terraform to test your lab setup.
 
 Key Aspects:
 
@@ -15,11 +23,11 @@ Key Aspects:
 - Configure VM with `cloud-init`
 
 
-## Terraform VM Deployment 
+## Terraform VM Deployment
 
 - Clone [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm) code from GitHub
 
-    > :warning: **Note:** This is if you setup SSH key access using [Optional Installs - GitHub Setup](./Optional_Installs.md#github-setup), otherwise use HTTPS URL and follow the username and password prompts
+    > :warning: **Note:** This is if you setup SSH key access using [Optional Installs - GitHub Setup](../../Optional_Installs.md#github-setup), otherwise use HTTPS URL and follow the username and password prompts
 
     ```bash
     git clone git@github.com:naturalblaze/lab-setup-ubuntu-kvm.git
@@ -31,7 +39,7 @@ Key Aspects:
     cd lab-setup-ubuntu-kvm/tf-workspaces/ubuntu_vm
     ```
 
-> :exclamation: **Note:** There are default values set for all the required variables so if you do not want/need to change any of the defaults you can skip editing `terraform.tfvars.example` and renaming it to `terraform.tfvars`
+> :exclamation: **Note:** There are default values set for all the required variables so if you do not want or need to change any of the defaults you can skip editing `terraform.tfvars.example` and renaming it to `terraform.tfvars`, just skip to the `Initialize Terraform workspace` step
 
 - Edit the variables `terraform.tfvars.example` file with the values you want for your environment
 
@@ -44,7 +52,7 @@ Key Aspects:
     | cpus | ✅ | 1 | CPUs allocated to VM. |
     | memory | ✅ | 1024 | Memory allocated to VM. |
     | root_pwd | ✅ | superrootpassword | VM root password. |
-    | username | ✅ | ubuntu | VM user. |
+    | username | ✅ | ubuntu | VM user to create. |
     | ssh_public_key | ✅ | ~/.ssh/id_ed25519.pub | Path to SSH Public key for user. |
     | dhcp | ✅ | True | Use DHCP for VM network config. |
     | network | ✅ | default | KVM network to use for VM network interface. |
@@ -85,7 +93,7 @@ Key Aspects:
 
 - Deploy Terraform resources
 
-    > :exclamation: **Note:** Use argument `--auto-approve` to bypass prompt for deployment
+    > :exclamation: **Note:** Use argument `--auto-approve` to bypass prompt for approval
 
     ```bash
     terraform apply
@@ -96,20 +104,24 @@ Key Aspects:
     > :exclamation: **Note:** You should see the IP Address that was assigned to your VM in the output of the `terraform apply` command
 
     ```bash
-    ssh ubuntu@<ip-address>
+    ssh <username>@<ip-address>
     ```
 
 - Destroy Terraform resources
 
-    > :exclamation: **Note:** Use argument `--auto-approve` to bypass prompt for deployment
+    > :exclamation: **Note:** Use argument `--auto-approve` to bypass prompt for approval
 
     ```bash
     terraform destroy
     ```
 
-## **🎉 Congratulations you have completed your first IaC deployment using Terraform**
+
+## **🎉 Congratulations you have completed your first IaC deployment using Terraform 🎉**
 
 
+### [Next Lesson - Deploy Ubuntu VM with MicroK8S](../ubuntu_vm_microk8s/Ubuntu_VM_MicroK8S.md)
+
+-----
 
 ### Resources
 
@@ -125,8 +137,27 @@ Key Aspects:
 
     - [Ubuntu VM](./Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
 
------
+    - [Ubuntu VM K8S Single Node with MicroK8S](../ubuntu_vm_microk8s/Ubuntu_VM_MicroK8S.md) - Deploy a simple Ubuntu Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
 
+
+#### Directory Structure:
+
+```text
+ubuntu_vm/
+├── data.tf
+├── output.tf
+├── provider.tf
+├── resource.tf
+├── templates
+│   ├── cloud_init.tftpl
+│   ├── meta_data.tftpl
+│   └── network_config.tftpl
+├── terraform.tfvars.example
+├── Ubuntu_VM.md
+└── variables.tf
+```
+
+-----
 
 #### GitHub Repo Information:
 
@@ -135,4 +166,3 @@ GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-se
 Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
 -----
-

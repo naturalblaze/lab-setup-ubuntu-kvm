@@ -38,3 +38,7 @@ terraform.rc
 terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
+
+
+# Ignore VSCode config files
+.vscode
