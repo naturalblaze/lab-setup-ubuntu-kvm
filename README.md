@@ -43,16 +43,35 @@ lab-setup-ubuntu-kvm/
 ├── README.md
 ├── Server_Setup.md
 └── tf-workspaces
-    └── ubuntu_vm
+    ├── ubuntu_vm
+    │   ├── data.tf
+    │   ├── output.tf
+    │   ├── provider.tf
+    │   ├── resource.tf
+    │   ├── templates
+    │   │   ├── cloud_init.tftpl
+    │   │   ├── meta_data.tftpl
+    │   │   └── network_config.tftpl
+    │   ├── terraform.tfvars.example
+    │   ├── Ubuntu_VM.md
+    │   └── variables.tf
+    └── ubuntu_vm_microk8s
+        ├── ansible
+        │   ├── microk8s_install.yaml
+        │   ├── nginx_install.yaml
+        │   └── ping.yaml
         ├── data.tf
         ├── output.tf
         ├── provider.tf
         ├── resource.tf
         ├── templates
-        │   ├── cloud_init.yaml
-        │   ├── meta_data.yaml
-        │   └── network_config.yaml
+        │   ├── cloud_init.tftpl
+        │   ├── meta_data.tftpl
+        │   └── network_config.tftpl
+        ├── terraform.tfstate
+        ├── terraform.tfstate.backup
+        ├── terraform.tfvars
         ├── terraform.tfvars.example
-        ├── Ubuntu_VM.md
+        ├── Ubuntu_VM_MicroK8S.md
         └── variables.tf
 ```
