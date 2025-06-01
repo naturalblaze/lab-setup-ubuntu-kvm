@@ -1,10 +1,29 @@
 # Server Setup
 
+
+## Table of Contents
+
+- [Description](./Server_Setup.md#description)
+
+- [Technologies Used](./Server_Setup.md#technologies-used)
+
+- [Deployment Process](./Server_Setup.md#deployment-process)
+
+  - [Physical Linux Server Setup](./Server_Setup.md#physical-linux-server-setup)
+
+  - [SSH Key Setup](./Server_Setup.md#ssh-key-setup)
+
+  - [KVM, QEMU, & Libvirt Setup](./Server_Setup.md#kvm-qemu-and-libvirt-setup)
+
+  - [Terraform Installation](./Server_Setup.md#terraform-installation)
+
+
 ## Description
 
 This first module will document the setup process I used to build the base server that is used to automate the deployment of virtualized environments that the different technologies can be deployed to.
 
 > :exclamation: **Note:** I'm using Ubuntu 24.04 server image to run as a headless server that I can SSH to via the command-line, but you could also use the Desktop version if your more comfortable with a Graphical interface.
+
 
 ## Technologies Used
 
@@ -85,7 +104,7 @@ EOF
 ```
 
 
-### KVM, QEMU, & Libvirt Setup
+### KVM, QEMU, and Libvirt Setup
 
 - Install packages needed for KVM, QEMU, & Libvirt
 
@@ -243,7 +262,7 @@ virsh pool-info default
 virsh pool-list --all
 ```
 
-### Terraform Installation:
+### Terraform Installation
 
 - Install Linux packages (`gnupg`, `software-properties-common`, `mkisofs`):
 
@@ -289,12 +308,12 @@ terraform -help plan
 ```
 
 
-## **🎉 At this point your system is setup and ready to `virtualize`**
+## **🎉 At this point your system is setup and ready to `virtualize` 🎉**
+
 
 ### [Next Step - Ubuntu VM](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
 
 -----
-
 
 ### Resources
 
@@ -310,8 +329,9 @@ terraform -help plan
 
     - [Ubuntu VM](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
 
------
+    - [Ubuntu VM K8S Single Node with MicroK8S](./tf-workspaces/ubuntu_vm_microk8s/Ubuntu_VM_MicroK8S.md) - Deploy a simple Ubuntu Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
 
+-----
 
 #### GitHub Repo Information:
 

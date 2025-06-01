@@ -1,13 +1,16 @@
 # Variable file for ubuntu_vm workspace
-libvirt_pool_path = "/var/lib/libvirt/images/terraform/ubuntu-test"
+# local_root_pwd    = "<local-user-password-for-sudo>"  # Uncomment if you lab server user requires a password for sudo commands
+libvirt_pool_path = "/var/lib/libvirt/images/terraform/ubuntu-microk8s"
 ubuntu_img_url    = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
 hostname          = "<hostname>"
 packages          = ["qemu-guest-agent"]
 cpus              = "<number-of-cpus>"
 memory            = "<amount-of-memory>"
+disk_size         = "<disk-size-increase>"
 root_pwd          = "<root-password>"
 username          = "<username>"
 ssh_public_key    = "~/.ssh/<your-ssh-key>.pub"
+ssh_private_key   = "~/.ssh/<your-ssh-key>
 dhcp              = "<true|false>"
 network           = "<network-name>"
 ip_address        = "<ip-address>"

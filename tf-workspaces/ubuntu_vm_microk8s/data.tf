@@ -6,6 +6,8 @@ data "template_file" "user_data" {
     ssh_public_key = file(var.ssh_public_key)
     root_pwd       = var.root_pwd
     packages       = jsonencode(var.packages)
+    cpus           = var.cpus
+    memory         = var.memory
   }
 }
 

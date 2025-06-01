@@ -1,4 +1,5 @@
-# Resource: for creating ubuntu-test pool
+# resource: terraform resources for deployment
+# Resource: for creating pool
 resource "libvirt_pool" "ubuntu" {
   name = "ubuntu-test"
   type = "dir"
@@ -28,12 +29,15 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 
 # Resource: for VM domain creation
 resource "libvirt_domain" "domain-ubuntu" {
+  # Set VM name and resources
   name   = var.hostname
   vcpu   = var.cpus
   memory = var.memory
 
+  # Set cloud-init
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
+  # Set network interface
   network_interface {
     network_name   = var.network
     wait_for_lease = true
@@ -47,6 +51,7 @@ resource "libvirt_domain" "domain-ubuntu" {
     target_type = "serial"
   }
 
+  # Set disk volume
   disk {
     volume_id = libvirt_volume.ubuntu.id
   }
@@ -57,5 +62,6 @@ resource "libvirt_domain" "domain-ubuntu" {
     listen_type = "address"
   }
 
+  # Enable qemu_agent on VM
   qemu_agent = true
 }

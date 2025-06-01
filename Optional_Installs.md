@@ -4,15 +4,6 @@
 
 This module will document some of the optional components I have installed. These components are not required for the automation to run but can be useful.
 
-
-## Technologies Used
-
-- [Cockpit](https://cockpit-project.org/)
-- [GitHub](https://github.com/)
-- [VSCode](https://code.visualstudio.com/)
-- [Ansible](https://docs.ansible.com/)
-
-
 ## Table of Contents
 
 - [Cockpit](#cockpit-setup)
@@ -112,6 +103,7 @@ EOF
     IdentityFile <path to id_ed25519>
   ```
 
+
 ### Ansible Setup
 
 Ansible is a very powerful open-source agentless automation tool. You could in fact do all these same KVM deployments just using Ansible. I am mainly going to use it for installing software and configurations during our deployments as I find it easier to deploy these things via Ansible than through Terraform. 
@@ -149,8 +141,9 @@ ansible --version
 ```
 
 
------
+### [Next Lesson - Deploy Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md)
 
+-----
 
 ### Resources
 
@@ -166,8 +159,9 @@ ansible --version
 
     - [Ubuntu VM](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy a simple Ubuntu Server VM to test your lab setup.
 
------
+    - [Ubuntu VM K8S Single Node with MicroK8S](./tf-workspaces/ubuntu_vm_microk8s/Ubuntu_VM_MicroK8S.md) - Deploy a simple Ubuntu Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
 
+-----
 
 #### GitHub Repo Information:
 
