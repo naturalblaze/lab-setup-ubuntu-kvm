@@ -68,7 +68,9 @@ Now that we have deployed a simple Ubuntu Server VM that is not much fun, so let
     cd lab-setup-ubuntu-kvm/tf-workspaces/ubuntu_vm_microk8s
     ```
 
-> :exclamation: **Note:** There are default values set for all the required variables so if you do not want/need to change any of the defaults you can skip editing `terraform.tfvars.example` and renaming it to `terraform.tfvars`. You only need to change and uncomment `local_root_pwd` if you lab server requires a password for sudo privileges
+> :exclamation: **Note:** There are default values set for all the required variables so if you do not want/need to change any of the defaults you can skip editing `terraform.tfvars.example` and renaming it to `terraform.tfvars`.
+
+> :warning: You only need to change and uncomment `local_root_pwd` if you lab server requires a password for sudo privileges, uncomment the `local_root_pwd` in `variables.tf`, and adjust the command in `resource.tf`
 
 - Edit the variables `terraform.tfvars.example` file with the values you want for your environment
 
