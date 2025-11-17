@@ -50,9 +50,6 @@ lab-setup-ubuntu-kvm/
     │   │   ├── cloud_init.tftpl
     │   │   ├── meta_data.tftpl
     │   │   └── network_config.tftpl
-    │   ├── terraform.tfstate
-    │   ├── terraform.tfstate.backup
-    │   ├── terraform.tfvars
     │   ├── terraform.tfvars.example
     │   ├── Ubuntu_VM.md
     │   └── variables.tf
@@ -71,9 +68,6 @@ lab-setup-ubuntu-kvm/
         │   ├── cloud_init.tftpl
         │   ├── meta_data.tftpl
         │   └── network_config.tftpl
-        ├── terraform.tfstate
-        ├── terraform.tfstate.backup
-        ├── terraform.tfvars
         ├── terraform.tfvars.example
         ├── Ubuntu_VM_MicroK8S.md
         └── variables.tf
