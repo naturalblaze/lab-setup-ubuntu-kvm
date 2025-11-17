@@ -4,8 +4,6 @@ This module will document some of the optional components I have installed. Thes
 
 ## Table of Contents
 
-* [Optional Technologies Used](#optional-technologies-used)
-
 * [Cockpit](#cockpit-setup)
 
 * [GitHub](#github-setup)
@@ -13,16 +11,6 @@ This module will document some of the optional components I have installed. Thes
 * [VSCode](#vscode-setup)
 
 * [Ansible](#ansible-setup)
-
-## Optional Technologies Used
-
-* [Cockpit](https://cockpit-project.org/)
-
-* [GitHub](https://github.com/)
-
-* [VSCode](https://code.visualstudio.com/)
-
-* [Ansible](https://docs.ansible.com/)
 
 ## Cockpit Setup
 
@@ -49,7 +37,7 @@ https://<server-hostname or ip-address>:9090/system
 
 > :bulb: **Note:** This requires you already have a GitHub account.
 
-I'm using the SSH key pair we created in the [Server_Setup * SSH Key Setup](#ssh-key-setup) for authentication into GitHub to be able to pull and push code from GitHub repositories. This of course optional as you could authenticate with HTTPS as well.
+I'm using [GitHub](https://github.com/) for my source control with SSH key pair authentication. We will use the SSH key pair created in the [Server_Setup - SSH Key Setup](./Server_Setup.md#ssh-key-setup) for authentication into GitHub to be able to pull and push code from GitHub repositories. This of course optional as you could authenticate with HTTPS as well.
 
 [Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
@@ -61,7 +49,7 @@ I'm using the SSH key pair we created in the [Server_Setup * SSH Key Setup](#ssh
 
   * Key: <YOUR-KEY-HERE>
 
-* Create a local directory and clone down the GitHub repo
+* Clone down the GitHub repo `(or fork the repo to your own GitHub space if you want to do you own testing)` 
 
 ```bash
 git clone git@github.com:naturalblaze/lab-setup-ubuntu-kvm.git
@@ -75,11 +63,11 @@ git clone https://github.com/naturalblaze/lab-setup-ubuntu-kvm.git
 
 ## VSCode Setup
 
-I'm using VSCode to connect to the lab server. It is a cross-platform editor with a extensive sweet of extensions. VSCode has a extension for `Remote - SSH` that lets you easily connect to a remote Linux server and edit code files and access the servers terminal. This of course optional as you could remote in with any terminal program that you are more comfortable with.
+I'm using [VSCode](https://code.visualstudio.com/) to connect to the lab server. It is a cross-platform editor with a extensive sweet of extensions. VSCode has a extension for `Remote - SSH` that lets you easily connect to a remote Linux server and edit code files and access the servers terminal.
 
 * Install VSCode on the device you want to connect from: [Download](https://code.visualstudio.com/Download)
 
-* Copy the text from the SSH Private key on the lab server
+* Copy the text from the SSH Private key on the **lab server**
 
 ```bash
 cat ~/.ssh/id_ed25519
@@ -87,7 +75,7 @@ cat ~/.ssh/id_ed25519
 
 * Create the SSH Private key file from the system you are trying to connect from
 
-> :exclamation: **Note:** My personal laptop is running Linux PopOS so the path to the SSH Private key is the same as on the lab server.  If you are connecting from a Windows devices your path would be something like `C:\Users\<username>\.ssh`
+> :bulb: **Note:** My personal laptop is running Linux PopOS so the path to the SSH Private key is the same as on the lab server.  If you are connecting from a Windows devices your path would be something like `C:\Users\<username>\.ssh`
 
 ```bash
 # Create file SSH Private key
@@ -96,11 +84,11 @@ cat > ~/.ssh/id_ed25519 << EOF
 EOF
 ```
 
-* Open VSCode and download the `Remote * SSH` extension
+* Open VSCode and download the `Remote - SSH` extension
 
   * Extensions button on left bar
 
-  * Search for `Remote * SSH` and Install
+  * Search for `Remote - SSH` and Install
 
 * Configure SSH Hosts in VSCode
 
@@ -114,16 +102,16 @@ EOF
 
   * Add the below code to your config file
 
-```bash
+```text
 Host <lab server name>
-HostName <lab server name or ip address>
-User <lab username>
-IdentityFile <path to id_ed25519>
+  HostName <lab server name or ip address>
+  User <lab username>
+  IdentityFile <path to id_ed25519>
 ```
 
 ## Ansible Setup
 
-Ansible is a very powerful open-source agentless automation tool. You could in fact do all these same KVM deployments just using Ansible. I am mainly going to use it for installing software and configurations during our deployments as I find it easier to deploy these things via Ansible than through Terraform.
+[Ansible](https://docs.ansible.com/) is a very powerful open-source agentless automation tool. You could in fact do all these same KVM deployments just using Ansible. I am mainly going to use it for installing software and configurations during our deployments as it is easier to deploy and validate these things via Ansible rather than through Terraform.
 
 [Ansible Docs](https://docs.ansible.com/)
 
