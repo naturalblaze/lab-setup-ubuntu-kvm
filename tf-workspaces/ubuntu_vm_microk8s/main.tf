@@ -1,6 +1,7 @@
-# resource: terraform resources for deployment
+# main/resource: terraform resources for deployment
+
 # Resource: for creating pool
-resource "libvirt_pool" "ubuntu" {
+resource "libvirt_pool" "microk8s" {
   name = "ubuntu-microk8s"
   type = "dir"
   target {
@@ -9,10 +10,10 @@ resource "libvirt_pool" "ubuntu" {
 }
 
 # Resource: for ubuntu cloud image volume
-resource "libvirt_volume" "ubuntu" {
+resource "libvirt_volume" "microk8s" {
   name   = "ubuntu-qcow2"
-  pool   = libvirt_pool.ubuntu.name
-  source = var.ubuntu_img_url
+  pool   = libvirt_pool.microk8s.name
+  source = var.img_url
   format = "qcow2"
 
   # Resize the ubuntu cloud image to add disk space to the qcow2
@@ -22,7 +23,7 @@ resource "libvirt_volume" "ubuntu" {
     command = "sudo -S qemu-img resize ${self.id} +${var.disk_size}G"
     # Uncomment command if lab user needs to enter password for sudo commands and comment command above
     # command = "echo ${var.local_root_pwd} | sudo -S qemu-img resize ${self.id} +${var.disk_size}G"
-    quiet   = true
+    quiet = true
     # Continue on failure - note that cloud image disk will not be resized
     on_failure = continue
   }
@@ -36,13 +37,14 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   user_data      = data.template_file.user_data.rendered
   meta_data      = data.template_file.meta_data.rendered
   network_config = data.template_file.network_config.rendered
-  pool           = libvirt_pool.ubuntu.name
+  pool           = libvirt_pool.microk8s.name
 }
 
 # Resource: for VM domain creation
-resource "libvirt_domain" "domain-ubuntu" {
+resource "libvirt_domain" "domain-microk8s" {
   # Set VM name and resources
   name   = var.hostname
+  type   = "kvm"
   vcpu   = var.cpus
   memory = var.memory
 
@@ -65,7 +67,7 @@ resource "libvirt_domain" "domain-ubuntu" {
 
   # Set disk volume
   disk {
-    volume_id = libvirt_volume.ubuntu.id
+    volume_id = libvirt_volume.microk8s.id
   }
 
   # VNC graphics for Cockpit VM terminal
@@ -92,7 +94,7 @@ resource "libvirt_domain" "domain-ubuntu" {
   provisioner "local-exec" {
     command = <<EOT
       echo "[microk8s]" > ansible/inventory.ini
-      echo "${libvirt_domain.domain-ubuntu.network_interface[0].addresses[0]}" >> ansible/inventory.ini
+      echo "${libvirt_domain.domain-microk8s.network_interface[0].addresses[0]}" >> ansible/inventory.ini
       echo "[microk8s:vars]" >> ansible/inventory.ini
       echo "ansible_user = \"${var.username}\"" >> ansible/inventory.ini
       echo "microk8s_config_path=\"/var/snap/microk8s/current/credentials/client.config\"" >> ansible/inventory.ini

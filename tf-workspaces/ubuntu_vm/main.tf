@@ -1,7 +1,8 @@
-# resource: terraform resources for deployment
+# main/resource: terraform resources for deployment
+
 # Resource: for creating pool
 resource "libvirt_pool" "ubuntu" {
-  name = "ubuntu-test"
+  name = "ubuntu-vm"
   type = "dir"
   target {
     path = var.libvirt_pool_path
@@ -12,7 +13,7 @@ resource "libvirt_pool" "ubuntu" {
 resource "libvirt_volume" "ubuntu" {
   name   = "ubuntu-qcow2"
   pool   = libvirt_pool.ubuntu.name
-  source = var.ubuntu_img_url
+  source = var.img_url
   format = "qcow2"
 }
 
@@ -31,6 +32,7 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 resource "libvirt_domain" "domain-ubuntu" {
   # Set VM name and resources
   name   = var.hostname
+  type   = "kvm"
   vcpu   = var.cpus
   memory = var.memory
 
