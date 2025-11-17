@@ -1,11 +1,12 @@
-# variable: Variables for ubuntu_vm module
+# variable: Variables for ubuntu_vm workspace
+
 variable "libvirt_pool_path" {
   description = "local path for libvirt storage pool"
   type        = string
-  default     = "/var/lib/libvirt/images/terraform"
+  default     = "/var/lib/libvirt/images/terraform/ubuntu_vm"
 }
 
-variable "ubuntu_img_url" {
+variable "img_url" {
   description = "linux url for qcow2 image"
   type        = string
   default     = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
@@ -38,7 +39,7 @@ variable "memory" {
 variable "root_pwd" {
   description = "vm root password"
   type        = string
-  default     = "superrootpassword"
+  default     = "rootplease"
   sensitive   = true
 }
 
@@ -55,16 +56,17 @@ variable "ssh_public_key" {
   sensitive   = true
 }
 
-variable "dhcp" {
-  description = "use dhcp for network"
-  type        = string
-  default     = "true"
-}
-
 variable "network" {
   description = "kvm network"
   type        = string
   default     = "default"
+}
+
+# Network settings for the VM if DHCP is true then the 4 below are not needed
+variable "dhcp" {
+  description = "use dhcp for network"
+  type        = string
+  default     = "true"
 }
 
 variable "ip_address" {
@@ -73,7 +75,7 @@ variable "ip_address" {
   default     = ""
 }
 
-variable "subnet" {
+variable "subnet_cidr" {
   description = "subnet mask (cidr)"
   type        = string
   default     = ""

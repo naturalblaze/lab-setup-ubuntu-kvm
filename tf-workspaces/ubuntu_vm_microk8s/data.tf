@@ -1,4 +1,5 @@
 # data: templates for cloud_init, meta_data, and network_config for vm
+
 data "template_file" "user_data" {
   template = file("${path.module}/templates/cloud_init.tftpl")
   vars = {
@@ -23,7 +24,7 @@ data "template_file" "network_config" {
   vars = {
     dhcp        = var.dhcp
     ip_address  = var.ip_address
-    subnet      = var.subnet
+    subnet      = var.subnet_cidr
     gateway     = var.gateway
     nameservers = jsonencode(var.nameservers)
   }

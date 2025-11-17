@@ -1,19 +1,19 @@
 # variable: Variables for ubuntu_vm module
-# Uncomment if you lab server user requires a password for sudo commands
-# variable "local_root_pwd" {
-#   description = "local host root password if sudo requires password"
-#   type        = string
-#   default     = ""
-#   sensitive   = true
-# }
+
+variable "local_root_pwd" {
+  description = "local host root password if sudo requires password"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
 
 variable "libvirt_pool_path" {
   description = "local path for libvirt storage pool"
   type        = string
-  default     = "/var/lib/libvirt/images/terraform"
+  default     = "/var/lib/libvirt/images/terraform/ubuntu_microk8s"
 }
 
-variable "ubuntu_img_url" {
+variable "img_url" {
   description = "linux url for qcow2 image"
   type        = string
   default     = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
@@ -22,7 +22,7 @@ variable "ubuntu_img_url" {
 variable "hostname" {
   description = "vm hostname"
   type        = string
-  default     = "ubuntu"
+  default     = "microk8s"
 }
 
 variable "packages" {
@@ -52,7 +52,7 @@ variable "disk_size" {
 variable "root_pwd" {
   description = "vm root password"
   type        = string
-  default     = "superrootpassword"
+  default     = "rootplease"
   sensitive   = true
 }
 
@@ -76,16 +76,16 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
-variable "dhcp" {
-  description = "use dhcp for network"
-  type        = string
-  default     = "true"
-}
-
 variable "network" {
   description = "kvm network"
   type        = string
   default     = "default"
+}
+
+variable "dhcp" {
+  description = "use dhcp for network"
+  type        = string
+  default     = "true"
 }
 
 variable "ip_address" {
@@ -94,7 +94,7 @@ variable "ip_address" {
   default     = ""
 }
 
-variable "subnet" {
+variable "subnet_cidr" {
   description = "subnet mask (cidr)"
   type        = string
   default     = ""
