@@ -75,7 +75,7 @@ git clone https://github.com/naturalblaze/lab-setup-ubuntu-kvm.git
 
 ## VSCode Setup
 
-I'm using VSCode to connect to the lab server. It is a cross-platform editor with a extensive sweet of extensions. VSCode has a extension for `Remote * SSH` that lets you easily connect to a remote Linux server and edit code files and access the servers terminal. This of course optional as you could remote in with any terminal program that you are more comfortable with.
+I'm using VSCode to connect to the lab server. It is a cross-platform editor with a extensive sweet of extensions. VSCode has a extension for `Remote - SSH` that lets you easily connect to a remote Linux server and edit code files and access the servers terminal. This of course optional as you could remote in with any terminal program that you are more comfortable with.
 
 * Install VSCode on the device you want to connect from: [Download](https://code.visualstudio.com/Download)
 
