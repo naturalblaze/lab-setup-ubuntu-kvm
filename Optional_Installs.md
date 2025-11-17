@@ -47,7 +47,7 @@ I'm using [GitHub](https://github.com/) for my source control with SSH key pair 
 
   * Key Type: Authentication
 
-  * Key: <YOUR-KEY-HERE>
+  * Key: <YOUR-KEY-HERE\>
 
 * Clone down the GitHub repo `(or fork the repo to your own GitHub space if you want to do you own testing)` 
 
