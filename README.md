@@ -28,7 +28,9 @@ I wanted to create a lab environment where I could easily deploy and destroy vir
 
     * [Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
 
-    * [Ubuntu VM K8S Single Node MicroK8S with Terraform](./tf-workspaces/ubuntu_vm_microk8s/Ubuntu_VM_MicroK8S.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
+    * [MicroK8S Single Node Ubuntu VM with Terraform](./tf-workspaces/microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
+
+    * [Dnsmasq VM with Terraform](./tf-workspaces/dnsmasq_vm/DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
 
 ---
 

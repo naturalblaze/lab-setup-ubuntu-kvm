@@ -10,7 +10,7 @@ terraform {
   }
 }
 
-# Configure the Libvirt provider for local QEMU system
+# Configure the Libvirt provider for local QEMU system resources
 provider "libvirt" {
   uri = "qemu:///system"
 }

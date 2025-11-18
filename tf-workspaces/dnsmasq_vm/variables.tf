@@ -1,9 +1,9 @@
-# variable: Variables for ubuntu_vm workspace
+# variable: Variables for dnsmasq_vm workspace
 
 variable "libvirt_pool_path" {
   description = "local path for libvirt storage pool"
   type        = string
-  default     = "/var/lib/libvirt/images/terraform/ubuntu_vm"
+  default     = "/var/lib/libvirt/images/terraform/dnsmasq_vm"
 }
 
 variable "img_url" {
@@ -15,7 +15,7 @@ variable "img_url" {
 variable "hostname" {
   description = "vm hostname"
   type        = string
-  default     = "ubuntu"
+  default     = "dnsmasq"
 
   validation {
     condition     = can(regex("^[0-9A-Za-z_-]+$", var.hostname))
@@ -25,14 +25,14 @@ variable "hostname" {
 
 variable "packages" {
   description = "linux packages to install, qemu-guest-agent needed for terraform"
-  type        = list(any)
-  default     = ["qemu-guest-agent"]
+  type        = list(string)
+  default     = ["qemu-guest-agent", "dnsmasq"]
 }
 
 variable "cpus" {
   description = "cpus allocated to vm"
   type        = number
-  default     = 1
+  default     = 2
 
   validation {
     condition     = var.cpus > 0
@@ -43,7 +43,7 @@ variable "cpus" {
 variable "memory" {
   description = "memory allocated to vm"
   type        = number
-  default     = 1024
+  default     = 2048
 
   validation {
     condition     = var.memory > 0
@@ -104,20 +104,12 @@ variable "network" {
   default     = "default"
 }
 
-# Network settings for the VM if DHCP is true then the 4 below are not needed
-variable "dhcp" {
-  description = "use dhcp for network"
-  type        = bool
-  default     = true
-}
-
 variable "ip_address" {
-  description = "static ip address for vm"
+  description = "static IPv4 address for vm"
   type        = string
-  default     = ""
 
   validation {
-    condition     = var.ip_address == "" || can(regex("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", var.ip_address))
+    condition     = can(regex("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", var.ip_address))
     error_message = "The provided IP address is not a valid IPv4 address."
   }
 }
@@ -125,7 +117,6 @@ variable "ip_address" {
 variable "subnet_cidr" {
   description = "subnet mask (cidr)"
   type        = number
-  default     = 24
 
   validation {
     condition     = var.subnet_cidr >= 0 && var.subnet_cidr <= 32
@@ -134,18 +125,29 @@ variable "subnet_cidr" {
 }
 
 variable "gateway" {
-  description = "default gateway ip address"
+  description = "default gateway IPv4 address"
   type        = string
-  default     = ""
 
   validation {
-    condition     = var.gateway == "" || can(regex("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", var.gateway))
+    condition     = can(regex("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", var.gateway))
     error_message = "The provided Gateway IP address is not a valid IPv4 address."
   }
 }
 
 variable "nameservers" {
-  description = "list of dns servers"
-  type        = list(string)
+  description = "list of external dns servers"
+  type        = list(any)
   default     = ["1.1.1.1", "1.0.0.1"]
+}
+
+variable "domain_name" {
+  description = "domain name"
+  type        = string
+  default     = "local.domain"
+}
+
+variable "domain_hosts" {
+  description = "list of local hosts"
+  type        = list(string)
+  default     = ["127.0.0.1  dnsmasq"]
 }

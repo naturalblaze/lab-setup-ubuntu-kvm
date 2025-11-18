@@ -4,9 +4,7 @@ network:
   renderer: networkd
   ethernets:
     ens3:
-      %{ if dhcp == "true" }dhcp4: true
-      dhcp6: true
-      %{ else }dhcp4: false
+      dhcp4: false
       dhcp6: false
       addresses:
         - ${ip_address}/${subnet}
@@ -15,5 +13,7 @@ network:
           via: ${gateway}
           metric: 100
       nameservers:
-        addresses: ${nameservers}
-      %{ endif }
+        addresses:
+          %{ for name in nameservers ~}
+          - ${name}
+          %{ endfor }

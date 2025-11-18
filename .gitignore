@@ -39,6 +39,9 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
 
-
 # Ignore VSCode config files
 .vscode
+
+# Ignore Ansible files
+ansible/inventory.ini
+ansible.cfg
