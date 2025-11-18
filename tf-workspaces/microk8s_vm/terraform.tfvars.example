@@ -1,0 +1,20 @@
+# Variable file for ubuntu_vm_microk8s workspace
+local_root_pwd    = "<local-user-password-for-sudo>"  # Set if you lab server user requires a password for sudo commands
+libvirt_pool_path = "/var/lib/libvirt/images/terraform/ubuntu_microk8s"
+img_url           = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+hostname          = "<hostname>"
+packages          = ["qemu-guest-agent"]
+cpus              = "<number-of-cpus>"
+memory            = "<amount-of-memory>"
+disk_size         = "<disk-size-increase>"
+root_pwd          = "<root-password>"
+username          = "<username>"
+user_pwd          = "<user-password>"
+ssh_public_key    = "~/.ssh/<your-ssh-key>.pub"
+ssh_private_key   = "~/.ssh/<your-ssh-key>"
+network           = "<network-name>"
+dhcp              = "<true|false>"
+ip_address        = "<ip-address>"
+subnet_cidr       = "<subnet-cidr>"
+gateway           = "<gateway-ip>"
+nameservers       = ["<dns-server1>", "<dns-server2>"]
