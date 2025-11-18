@@ -10,6 +10,12 @@ package_upgrade: true
 packages:
   - apt: ${packages}
 
+# write_files:
+#   - path: "/<some-path>/<some-file>"
+#     permissions: "0755"
+#     content: |
+#         # Creating file on target system
+
 runcmd:
   - [ systemctl, start, qemu-guest-agent ]
   - [ systemctl, enable, qemu-guest-agent ]
@@ -18,6 +24,7 @@ ssh_pwauth: True
 chpasswd:
   list: |
     root:${root_pwd}
+    ${username}:${user_pwd}
   expire: False
 
 users:

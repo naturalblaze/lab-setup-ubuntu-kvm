@@ -1,8 +1,8 @@
 # main/resource: terraform resources for deployment
 
 # Resource: for creating pool
-resource "libvirt_pool" "ubuntu" {
-  name = "ubuntu-vm"
+resource "libvirt_pool" "dnsmasq" {
+  name = "dnsmasq-vm"
   type = "dir"
   target {
     path = var.libvirt_pool_path
@@ -10,9 +10,9 @@ resource "libvirt_pool" "ubuntu" {
 }
 
 # Resource: for ubuntu cloud image volume
-resource "libvirt_volume" "ubuntu" {
+resource "libvirt_volume" "dnsmasq" {
   name   = "ubuntu-qcow2"
-  pool   = libvirt_pool.ubuntu.name
+  pool   = libvirt_pool.dnsmasq.name
   source = var.img_url
   format = "qcow2"
 }
@@ -25,11 +25,16 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   user_data = templatefile(
     "${path.module}/templates/cloud_init.tftpl",
     {
+      hostname       = var.hostname,
       username       = var.username,
       ssh_public_key = file(var.ssh_public_key),
       root_pwd       = var.root_pwd,
       user_pwd       = var.user_pwd,
       packages       = jsonencode(var.packages),
+      ip_address     = var.ip_address,
+      nameservers    = var.nameservers,
+      domain_name    = var.domain_name,
+      domain_hosts   = var.domain_hosts,
     }
   )
   meta_data = templatefile(
@@ -41,18 +46,18 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   network_config = templatefile(
     "${path.module}/templates/network_config.tftpl",
     {
-      dhcp        = var.dhcp,
       ip_address  = var.ip_address,
       subnet      = var.subnet_cidr,
       gateway     = var.gateway,
       nameservers = var.nameservers,
+      domain_name = var.domain_name,
     }
   )
-  pool = libvirt_pool.ubuntu.name
+  pool = libvirt_pool.dnsmasq.name
 }
 
 # Resource: for VM domain creation
-resource "libvirt_domain" "domain-ubuntu" {
+resource "libvirt_domain" "domain-dnsmasq" {
   # Set VM name and resources
   name   = var.hostname
   type   = "kvm"
@@ -78,7 +83,7 @@ resource "libvirt_domain" "domain-ubuntu" {
 
   # Set disk volume
   disk {
-    volume_id = libvirt_volume.ubuntu.id
+    volume_id = libvirt_volume.dnsmasq.id
   }
 
   # VNC graphics for Cockpit VM terminal
