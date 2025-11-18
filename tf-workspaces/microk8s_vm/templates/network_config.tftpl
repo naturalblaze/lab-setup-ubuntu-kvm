@@ -1,0 +1,22 @@
+#cloud-config
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens3:
+      %{ if dhcp }dhcp4: true
+      dhcp6: true
+      %{ else }dhcp4: false
+      dhcp6: false
+      addresses:
+        - ${ip_address}/${subnet}
+      routes:
+        - to: default
+          via: ${gateway}
+          metric: 100
+      nameservers:
+        addresses:
+          %{ for name in nameservers ~}
+          - ${name}
+          %{ endfor }
+      %{ endif }
