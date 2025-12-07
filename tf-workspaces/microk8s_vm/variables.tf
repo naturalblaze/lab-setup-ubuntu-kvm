@@ -1,5 +1,4 @@
 # variable: Variables for ubuntu_vm module
-
 variable "local_root_pwd" {
   description = "local host root password if sudo requires password"
   type        = string

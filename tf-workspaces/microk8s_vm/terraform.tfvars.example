@@ -1,4 +1,4 @@
-# Variable file for ubuntu_vm_microk8s workspace
+# Variable file for terraform workspace
 local_root_pwd    = "<local-user-password-for-sudo>"  # Set if you lab server user requires a password for sudo commands
 libvirt_pool_path = "/var/lib/libvirt/images/terraform/ubuntu_microk8s"
 img_url           = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"

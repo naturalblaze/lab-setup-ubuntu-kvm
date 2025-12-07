@@ -1,6 +1,6 @@
 # Lab Setup
 
-## Ubuntu Lab Server with KVM, Libvirt, QEMU, Terraform and Ansible
+## Ubuntu Lab Server with KVM, Libvirt, QEMU, Terraform, and Ansible
 
 GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 
@@ -8,7 +8,7 @@ Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
 ## Description
 
-I wanted to create a lab environment where I could easily deploy and destroy virtualized technologies using IaC tools for learning, testing, and development purposes. I have a MiniPC I used for a headless base server running Ubuntu 24.04 Server with KVM, QEMU, and Libvirt to support virtualization. You could use many different Linux distributions or even desktop flavors, but we are going to focus on Linux.
+I wanted to create a lab environment where I could easily deploy and destroy virtualized technologies using IaC tools for learning, testing, and development purposes. I used a MiniPC I used for a headless Linux base server running Ubuntu 24.04 Server with KVM, QEMU, and Libvirt to support virtualization. You could use different OS', different Linux distributions,  or even desktop for your virtualization server, but we are going to focus on Linux.
 
 ### [Next Project - Server Setup](./Server_Setup.md)
 

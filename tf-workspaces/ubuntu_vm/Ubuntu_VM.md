@@ -2,7 +2,7 @@
 
 Our first Terraform workspace will be the deployment of a single Ubuntu Linux VM. This will not only test our lab setup to ensure everything is working correctly, we can also use this to easily deploy a Linux VM if we want to test something. 
 
-> :bulb: **Note:** I'm separating the Terraform configurations into separate files for the different configuration blocks to help with readability but the file structure and naming patterns are completely up to you. You can have all the configurations in the same `.tf` file if you chose. 
+> :bulb: **Note:** I'm separating the Terraform configurations into separate files for the different configuration blocks to help with readability, but the file structure and naming patterns are completely up to you. You can have all the configurations in the same `.tf` file if you chose.
 
 ## Table of Contents
 
@@ -34,12 +34,14 @@ To set or override any of the `variables.tf` values for your specific use just r
 
 | Name | Required | Default | Description |
 | ---- | -------- | ------- | ----------- |
+| local_root_pwd | ✅/🚫 | None | Only required if your lab server requires a user password for sudo commands. |
 | libvirt_pool_path | ✅ | /var/lib/libvirt/images/terraform/ubuntu_vm | Local path for the Libvirt storage pool to be created. |
 | img_url | ✅ | https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img | Linux URL for QCOW2 image. |
 | hostname | ✅ | ubuntu | VM hostname. |
 | packages | ✅ | qemu-guest-agent | Linux packages to install during the cloud-init configuration, `qemu-guest-agent` needed for Terraform to validate the install. |
 | cpus | ✅ | 1 | CPUs allocated to VM. |
 | memory | ✅ | 1024 | Memory allocated to VM. |
+| disk_size | ✅ | 20 | Capacity to add to `qcow2` disk (in GB). |
 | root_pwd | ✅ | rootplease | VM root password. |
 | username | ✅ | ubuntu | VM user to create. |
 | user_pwd | ✅ | userplease | VM user password. |
@@ -168,7 +170,6 @@ terraform destroy
 
 ```text
 ubuntu_vm/
-├── data.tf
 ├── main.tf
 ├── output.tf
 ├── provider.tf
@@ -181,7 +182,7 @@ ubuntu_vm/
 └── variables.tf
 ```
 
------
+---
 
 #### GitHub Repo Information:
 
@@ -189,4 +190,4 @@ GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-se
 
 Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
------
+---
