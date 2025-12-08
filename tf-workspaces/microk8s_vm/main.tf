@@ -1,8 +1,7 @@
-# main/resource: terraform resources for deployment
-
+# main/resource: https://developer.hashicorp.com/terraform/language/block/resource
 # Resource: for creating pool
 resource "libvirt_pool" "microk8s" {
-  name = "ubuntu-microk8s"
+  name = var.libvirt_pool_name
   type = "dir"
   target {
     path = var.libvirt_pool_path
@@ -19,10 +18,9 @@ resource "libvirt_volume" "microk8s" {
   # Resize the ubuntu cloud image to add disk space to the qcow2
   # Note: because the libvirt_pool is provisioned as system the dir will have root perms and need sudo to increase space
   provisioner "local-exec" {
-    # Command if lab user can run sudo commands without a password
-    command = "sudo -S qemu-img resize ${self.id} +${var.disk_size}G"
-    # Uncomment command if lab user needs to enter password for sudo commands and comment command above
-    # command = "echo ${var.local_root_pwd} | sudo -S qemu-img resize ${self.id} +${var.disk_size}G"
+    # Conditional command expand disk
+    command = var.local_root_pwd == "" ? "sudo -S qemu-img resize ${self.id} +${var.disk_size}G" : "echo ${var.local_root_pwd} | sudo -S qemu-img resize ${self.id} +${var.disk_size}G"
+    # No output for command
     quiet = true
     # Continue on failure - note that cloud image disk will not be resized
     on_failure = continue
@@ -66,10 +64,11 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 # Resource: for VM domain creation
 resource "libvirt_domain" "domain-microk8s" {
   # Set VM name and resources
-  name   = var.hostname
-  type   = "kvm"
-  vcpu   = var.cpus
-  memory = var.memory
+  name      = var.hostname
+  type      = "kvm"
+  vcpu      = var.cpus
+  memory    = var.memory
+  autostart = true
 
   # Set cloud-init
   cloudinit = libvirt_cloudinit_disk.commoninit.id

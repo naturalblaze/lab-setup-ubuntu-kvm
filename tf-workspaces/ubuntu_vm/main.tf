@@ -1,5 +1,4 @@
 # main/resource: https://developer.hashicorp.com/terraform/language/block/resource
-
 # Resource: for creating pool
 resource "libvirt_pool" "ubuntu" {
   name = var.libvirt_pool_name

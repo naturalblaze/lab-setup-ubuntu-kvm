@@ -43,8 +43,8 @@ lab-setup-ubuntu-kvm/
 ├── README.md
 ├── Server_Setup.md
 └── tf-workspaces
-    ├── ubuntu_vm
-    │   ├── data.tf
+    ├── dnsmasq_vm
+    │   ├── DNSMasq_VM.md
     │   ├── main.tf
     │   ├── output.tf
     │   ├── provider.tf
@@ -52,17 +52,32 @@ lab-setup-ubuntu-kvm/
     │   │   ├── cloud_init.tftpl
     │   │   ├── meta_data.tftpl
     │   │   └── network_config.tftpl
+    │   ├── terraform.tfstate
+    │   ├── terraform.tfstate.backup
+    │   ├── terraform.tfvars
     │   ├── terraform.tfvars.example
-    │   ├── Ubuntu_VM.md
     │   └── variables.tf
-    └── ubuntu_vm_microk8s
-        ├── ansible
-        │   ├── inventory.ini
-        │   ├── microk8s_install.yaml
-        │   ├── nginx_install.yaml
-        │   └── ping.yaml
-        ├── ansible.cfg
-        ├── data.tf
+    ├── microk8s_vm
+    │   ├── ansible
+    │   │   ├── inventory.ini
+    │   │   ├── microk8s_install.yaml
+    │   │   ├── nginx_install.yaml
+    │   │   └── ping.yaml
+    │   ├── ansible.cfg
+    │   ├── main.tf
+    │   ├── MicroK8S_VM.md
+    │   ├── output.tf
+    │   ├── provider.tf
+    │   ├── templates
+    │   │   ├── cloud_init.tftpl
+    │   │   ├── meta_data.tftpl
+    │   │   └── network_config.tftpl
+    │   ├── terraform.tfstate
+    │   ├── terraform.tfstate.backup
+    │   ├── terraform.tfvars
+    │   ├── terraform.tfvars.example
+    │   └── variables.tf
+    └── ubuntu_vm
         ├── main.tf
         ├── output.tf
         ├── provider.tf
@@ -70,7 +85,10 @@ lab-setup-ubuntu-kvm/
         │   ├── cloud_init.tftpl
         │   ├── meta_data.tftpl
         │   └── network_config.tftpl
+        ├── terraform.tfstate
+        ├── terraform.tfstate.backup
+        ├── terraform.tfvars
         ├── terraform.tfvars.example
-        ├── Ubuntu_VM_MicroK8S.md
+        ├── Ubuntu_VM.md
         └── variables.tf
 ```

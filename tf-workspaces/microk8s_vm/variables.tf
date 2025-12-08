@@ -1,4 +1,4 @@
-# variable: Variables for ubuntu_vm module
+# variable: https://developer.hashicorp.com/terraform/language/block/variable
 variable "local_root_pwd" {
   description = "local host root password if sudo requires password"
   type        = string
@@ -14,7 +14,18 @@ variable "local_root_pwd" {
 variable "libvirt_pool_path" {
   description = "local path for libvirt storage pool"
   type        = string
-  default     = "/var/lib/libvirt/images/terraform/ubuntu_microk8s"
+  default     = "/var/lib/libvirt/images/terraform/microk8s_vm"
+}
+
+variable "libvirt_pool_name" {
+  description = "storage pool name for libvirt"
+  type        = string
+  default     = "microk8s-vm"
+
+  validation {
+    condition     = can(regex("^[0-9A-Za-z_-]+$", var.libvirt_pool_name))
+    error_message = "The variable 'libvirt_pool_name' must only contain alphanumeric characters (a-z, A-Z, 0-9, _-) and no spaces or special characters."
+  }
 }
 
 variable "img_url" {
@@ -65,10 +76,10 @@ variable "memory" {
 variable "disk_size" {
   description = "disk size increase for vm (in GB)"
   type        = number
-  default     = 20
+  default     = 0
 
   validation {
-    condition     = var.disk_size > 0
+    condition     = var.disk_size >= 0
     error_message = "The 'disk_size' must be a non-negative number (greater than 0)."
   }
 }
@@ -138,6 +149,7 @@ variable "network" {
   default     = "default"
 }
 
+# Network settings for the VM if DHCP is true then the 4 below are not needed
 variable "dhcp" {
   description = "use dhcp for network"
   type        = bool

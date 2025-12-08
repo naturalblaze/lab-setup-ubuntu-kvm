@@ -1,6 +1,6 @@
-# Ubuntu VM K8S Single Node MicroK8S with Terraform
+# MicroK8S VM K8S Single Node with Terraform
 
-Our next Terraform workspace will be the deployment of a single Ubuntu Linux VM and then installing and configuring MicroK8S (Kubernetes). Rarely do you only need to deploy a vanilla Linux system so lets expand and add some features to our deployment.
+Our next Terraform workspace will be the deployment of a single Ubuntu Linux VM and then installing and configuring a single node MicroK8S (Kubernetes). Rarely do you only need to deploy a vanilla Linux system so lets expand and add some features to our deployment.
 
 > :bulb: **Note:** I'm separating the Terraform configurations into separate files for the different configuration blocks to help with readability but the file structure and naming patterns are completely up to you. You can have all the configurations in the same `.tf` file if you chose. 
 
@@ -60,14 +60,14 @@ To set or override any of the `variables.tf` values for your specific use just r
 | Name | Required | Default | Description |
 | ---- | -------- | ------- | ----------- |
 | local_root_pwd | ✅/🚫 | None | Only required if your lab server requires a user password for sudo commands. |
-| libvirt_pool_path | ✅ | /var/lib/libvirt/images/terraform/ubuntu_microk8s | Local path for the Libvirt storage pool to be created. |
+| libvirt_pool_path | ✅ | /var/lib/libvirt/images/terraform/microk8s_vm | Local path for the Libvirt storage pool to be created. |
 | img_url | ✅ | https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img | Linux URL for QCOW2 image. |
-| hostname | ✅ | ubuntu | VM hostname. |
+| hostname | ✅ | microk8s | VM hostname. |
 | packages | ✅ | qemu-guest-agent | Linux packages to install during the cloud-init configuration, `qemu-guest-agent` needed for Terraform to validate the install. |
 | cpus | ✅ | 2 | CPUs allocated to VM. |
 | memory | ✅ | 2048 | Memory allocated to VM (in MB). |
-| disk_size | ✅ | 20 | Capacity to add to `qcow2` disk (in GB). |
-| root_pwd | ✅ | superrootpassword | VM root password. |
+| disk_size | ✅ | 0 | Capacity to add to `qcow2` disk (in GB). |
+| root_pwd | ✅ | rootplease | VM root password. |
 | username | ✅ | ubuntu | VM user to create. |
 | user_pwd | ✅ | userplease | VM user password. |
 | ssh_public_key | ✅ | ~/.ssh/id_ed25519.pub | Path to SSH Public key for user. |
@@ -84,6 +84,8 @@ To set or override any of the `variables.tf` values for your specific use just r
 
 I have all the needed configuration files setup in the Github repository and there are default values set for all the required variables so if you do not want or need to change any of the defaults you can easily just clone the repo down and deploy the initial environment. I will walk through what all the different files are doing later in the wiki.
 
+> :bulb: **Note:** I would recommend at least adding a few GB of disk space with the `disk_size` variable as the default Ubuntu cloud image has a very small filesystem.
+
 * Clone [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm) code from GitHub
 
 ```bash
@@ -98,7 +100,7 @@ git clone git@github.com:naturalblaze/lab-setup-ubuntu-kvm.git
 * Change to Terraform workspace directory
 
 ```bash
-cd lab-setup-ubuntu-kvm/tf-workspaces/ubuntu_vm_microk8s
+cd lab-setup-ubuntu-kvm/tf-workspaces/microk8s_vm/
 ```
 
 * Initialize Terraform workspace
@@ -259,15 +261,13 @@ terraform destroy
 #### Directory Structure:
 
 ```text
-ubuntu_vm_microk8s/
+microk8s_vm/
 ├── ansible
-│   ├── inventory.ini
 │   ├── microk8s_install.yaml
 │   ├── nginx_install.yaml
 │   └── ping.yaml
-├── ansible.cfg
-├── data.tf
 ├── main.tf
+├── MicroK8S_VM.md
 ├── output.tf
 ├── provider.tf
 ├── templates
@@ -275,7 +275,6 @@ ubuntu_vm_microk8s/
 │   ├── meta_data.tftpl
 │   └── network_config.tftpl
 ├── terraform.tfvars.example
-├── Ubuntu_VM_MicroK8S.md
 └── variables.tf
 ```
 
