@@ -36,12 +36,13 @@ To set or override any of the `variables.tf` values for your specific use just r
 | ---- | -------- | ------- | ----------- |
 | local_root_pwd | ✅/🚫 | None | Only required if your lab server requires a user password for sudo commands. |
 | libvirt_pool_path | ✅ | /var/lib/libvirt/images/terraform/ubuntu_vm | Local path for the Libvirt storage pool to be created. |
+| libvirt_pool_name | ✅ | ubuntu-vm | Storage pool name for libvirt. |
 | img_url | ✅ | https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img | Linux URL for QCOW2 image. |
 | hostname | ✅ | ubuntu | VM hostname. |
 | packages | ✅ | qemu-guest-agent | Linux packages to install during the cloud-init configuration, `qemu-guest-agent` needed for Terraform to validate the install. |
 | cpus | ✅ | 1 | CPUs allocated to VM. |
 | memory | ✅ | 1024 | Memory allocated to VM. |
-| disk_size | ✅ | 20 | Capacity to add to `qcow2` disk (in GB). |
+| disk_size | ✅ | 0 | Capacity to add to `qcow2` disk (in GB). |
 | root_pwd | ✅ | rootplease | VM root password. |
 | username | ✅ | ubuntu | VM user to create. |
 | user_pwd | ✅ | userplease | VM user password. |

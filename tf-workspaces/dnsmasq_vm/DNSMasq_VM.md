@@ -36,12 +36,15 @@ To set or override any of the `variables.tf` values for your specific use just r
 
 | Name | Required | Default | Description |
 | ---- | -------- | ------- | ----------- |
+| local_root_pwd | ✅/🚫 | None | Only required if your lab server requires a user password for sudo commands. |
 | libvirt_pool_path | ✅ | /var/lib/libvirt/images/terraform/dnsmasq_vm | Local path for the Libvirt storage pool to be created. |
+| libvirt_pool_name | ✅ | dnsmasq-vm | Storage pool name for libvirt. |
 | img_url | ✅ | https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img | Linux URL for QCOW2 image. |
 | hostname | ✅ | dnsmasq | VM hostname. |
 | packages | ✅ | ["qemu-guest-agent", "dnsmasq"] | Linux packages to install during the cloud-init configuration, `qemu-guest-agent` needed for Terraform to validate the install. |
 | cpus | ✅ | 2 | CPUs allocated to VM. |
 | memory | ✅ | 2048 | Memory allocated to VM. |
+| disk_size | ✅ | 0 | Capacity to add to `qcow2` disk (in GB). |
 | root_pwd | ✅ | rootplease | VM root password. |
 | username | ✅ | ubuntu | VM user to create. |
 | user_pwd | ✅ | userplease | VM user password. |
@@ -57,7 +60,7 @@ To set or override any of the `variables.tf` values for your specific use just r
 
 ## Terraform VM Deployment
 
-This deployment reqires you to define some of the variables that will be needed. You can either set defaults in your `variables.tf` or create `terraform.tfvars`. You will need to define the `ip_address`, `gateway`, and `subnet_cidr` for this VM to be provisioned.  This can be done via the `.tfvars` file, adding defaults to `variables.tf`, providing via the cli commands, or entering the prompts during the plan, apply, and destroy phases.
+This deployment reqires you to define a minimum of static network variables. You will need to define the `ip_address`, `gateway`, and `subnet_cidr` for this VM to be provisioned.  This can be done via the `.tfvars` file, adding defaults to `variables.tf`, providing via the cli commands, or entering the prompts during the plan, apply, and destroy phases.
 
 * Clone [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm) code from GitHub
 
@@ -178,7 +181,7 @@ terraform destroy
 #### Directory Structure:
 
 ```text
-udnsmasq_vm/
+dnsmasq_vm/
 ├── DNSMasq_VM.md
 ├── main.tf
 ├── output.tf

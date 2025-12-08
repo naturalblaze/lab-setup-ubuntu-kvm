@@ -18,7 +18,7 @@ variable "libvirt_pool_path" {
 }
 
 variable "libvirt_pool_name" {
-  description = "vm hostname"
+  description = "storage pool name for libvirt"
   type        = string
   default     = "ubuntu-vm"
 
