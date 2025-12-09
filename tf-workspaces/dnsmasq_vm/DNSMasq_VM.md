@@ -6,13 +6,15 @@ In this Terraform workspace will be the deploying a single Ubuntu Linux VM and c
 
 ## Table of Contents
 
-* [Description](#description)
+* [Description](./DNSMasq_VM.md#description)
 
-* [Environment](#environment)
+* [Environment](./DNSMasq_VM.md#environment)
 
-* [Terraform VM Deployment](#terraform-vm-deployment)
+* [Terraform VM Deployment](./DNSMasq_VM.md#terraform-vm-deployment)
 
-* [Terraform Configuration Walkthrough](#terraform-configurations-walkthrough)
+* [Terraform Configuration Walkthrough](./DNSMasq_VM.md#terraform-configurations-walkthrough)
+
+* [Resources](./DNSMasq_VM.md#resources)
 
 ## Description
 
@@ -36,12 +38,15 @@ To set or override any of the `variables.tf` values for your specific use just r
 
 | Name | Required | Default | Description |
 | ---- | -------- | ------- | ----------- |
+| local_root_pwd | ✅/🚫 | None | Only required if your lab server requires a user password for sudo commands. |
 | libvirt_pool_path | ✅ | /var/lib/libvirt/images/terraform/dnsmasq_vm | Local path for the Libvirt storage pool to be created. |
+| libvirt_pool_name | ✅ | dnsmasq-vm | Storage pool name for libvirt. |
 | img_url | ✅ | https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img | Linux URL for QCOW2 image. |
 | hostname | ✅ | dnsmasq | VM hostname. |
 | packages | ✅ | ["qemu-guest-agent", "dnsmasq"] | Linux packages to install during the cloud-init configuration, `qemu-guest-agent` needed for Terraform to validate the install. |
 | cpus | ✅ | 2 | CPUs allocated to VM. |
 | memory | ✅ | 2048 | Memory allocated to VM. |
+| disk_size | ✅ | 0 | Capacity to add to `qcow2` disk (in GB). |
 | root_pwd | ✅ | rootplease | VM root password. |
 | username | ✅ | ubuntu | VM user to create. |
 | user_pwd | ✅ | userplease | VM user password. |
@@ -57,7 +62,7 @@ To set or override any of the `variables.tf` values for your specific use just r
 
 ## Terraform VM Deployment
 
-This deployment reqires you to define some of the variables that will be needed. You can either set defaults in your `variables.tf` or create `terraform.tfvars`. You will need to define the `ip_address`, `gateway`, and `subnet_cidr` for this VM to be provisioned.  This can be done via the `.tfvars` file, adding defaults to `variables.tf`, providing via the cli commands, or entering the prompts during the plan, apply, and destroy phases.
+This deployment reqires you to define a minimum of static network variables. You will need to define the `ip_address`, `gateway`, and `subnet_cidr` for this VM to be provisioned.  This can be done via the `.tfvars` file, adding defaults to `variables.tf`, providing via the cli commands, or entering the prompts during the plan, apply, and destroy phases.
 
 * Clone [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm) code from GitHub
 
@@ -151,34 +156,24 @@ terraform destroy
 
 ---
 
-## **🎉 Congratulations you have deployed and configured a DNS server using Terraform 🎉**
+<h3 style="text-align: center;">🎉 Congratulations you have deployed and configured a DNS server using Terraform 🎉</h3>
 
-### [Next Project - Deploy Ubuntu VM with MicroK8S](../ubuntu_vm_microk8s/Ubuntu_VM_MicroK8S.md)
+<h3 style="text-align: center;"><a href="../docker_vm/Docker_VM.md">Next Project - Deploy Ubuntu VM with Docker</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
+[Repository Table of Contents](../../README.md#table-of-contents)
 
-* [Home](../../README.md)
+GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 
-* [Server Setup](../../Server_Setup.md)
+Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
-* [Optional Installs](../../Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](../ubuntu_vm/Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](../microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](./DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
-#### Directory Structure:
+Directory Structure:
 
 ```text
-udnsmasq_vm/
+dnsmasq_vm/
 ├── DNSMasq_VM.md
 ├── main.tf
 ├── output.tf
@@ -191,12 +186,4 @@ udnsmasq_vm/
 └── variables.tf
 ```
 
------
-
-#### GitHub Repo Information:
-
-GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
-
-Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
-
------
+---

@@ -10,7 +10,7 @@ This module will document some of the optional components I have installed. Thes
 
 * [VSCode](#vscode-setup)
 
-* [Ansible](#ansible-setup)
+* [Resources](./Server_Setup.md#resources)
 
 ## Cockpit Setup
 
@@ -109,67 +109,13 @@ Host <lab server name>
   IdentityFile <path to id_ed25519>
 ```
 
-## Ansible Setup
-
-[Ansible](https://docs.ansible.com/) is a very powerful open-source agentless automation tool. You could in fact do all these same KVM deployments just using Ansible. I am mainly going to use it for installing software and configurations during our deployments as it is easier to deploy and validate these things via Ansible rather than through Terraform.
-
-[Ansible Docs](https://docs.ansible.com/)
-
-* Update your system
-
-```bash
-sudo apt update && sudo apt upgrade -y
-```
-
-* Install software properties common
-
-```bash
-sudo apt install software-properties-common -y
-```
-
-* Add Ansible Official PPA
-
-```bash
-sudo add-apt-repository --yes --update ppa:ansible/ansible
-```
-
-* Install Ansible
-
-```bash
-sudo apt update && sudo apt-get -y install ansible
-```
-
-* Validate Ansible is installed
-
-```bash
-ansible --version
-```
-
-### [Next Project - Deploy Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md)
+<h3 style="text-align: center;"><a href="./tf-workspaces/ubuntu_vm/Ubuntu_VM.md">Next Project - Deploy Ubuntu VM with Terraform</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
-
-* [Home](./README.md)
-
-* [Server Setup](./Server_Setup.md)
-
-* [Optional Installs](./Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](./tf-workspaces/microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](./tf-workspaces/dnsmasq_vm/DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
----
-
-#### GitHub Repo Information:
+[Repository Table of Contents](./README.md#table-of-contents)
 
 GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 

@@ -4,35 +4,39 @@ This first module will document the setup process I used to build the base serve
 
 ## Table of Contents
 
-* [Server Technologies Used](./Server_Setup.md#server-technologies-used)
-
 * [Physical Linux Server Setup](./Server_Setup.md#physical-linux-server-setup)
 
-* [SSH Key Setup](./Server_Setup.md#ssh-key-setup)
+  * [SSH Key Setup](./Server_Setup.md#ssh-key-setup)
 
-* [KVM, QEMU, & Libvirt Setup](./Server_Setup.md#kvm-qemu-and-libvirt-setup)
+  * [KVM, QEMU, & Libvirt Setup](./Server_Setup.md#kvm-qemu-and-libvirt-setup)
 
-* [Terraform Installation](./Server_Setup.md#terraform-installation)
+* [Terraform Install](./Server_Setup.md#terraform-install)
 
-## Server Technologies Used
+* [Ansible Install](./Server_Setup.md#ansible-install)
 
-* [Ubuntu Server 24.04 LTS Server](https://ubuntu.com/blog/tag/ubuntu-24-04-lts)
+* [Resources](./Server_Setup.md#resources)
 
-* [Linux KVM](https://linux-kvm.org/page/Main_Page)
-
-* [QEMU](https://www.qemu.org/)
-
-* [Libvirt](https://libvirt.org/apps.html)
-
-* [Terraform](https://www.terraform.io/)
 
 ## Physical Linux Server Setup
 
+[Ubuntu Server 24.04 LTS Server Documentation](https://ubuntu.com/blog/tag/ubuntu-24-04-lts)
+
+[Linux KVM Documentation](https://linux-kvm.org/page/Main_Page)
+
+[QEMU Documentation](https://www.qemu.org/)
+
+[Libvirt Documentation](https://libvirt.org/apps.html)
+
+
 * Follow the procedures to create the install media and do the physical install Ubuntu Server on your target hardware: [Ubuntu Server Install Guide](https://ubuntu.com/tutorials/install-ubuntu-server#1-overview)
 
-> :bulb: **Note:** I prefer to setup a static IP address for my server so I know exactly where my server will always be after reboots but you could also use DHCP reservations on your router if you prefer.
+> :bulb: **Note:** I prefer to setup a static IP address for my server so I know exactly where my server will always be after reboots, but you can define your network configuration for whatever works best for you.
 
 * Login and validate you can access your server remotely
+
+```bash
+ssh <username>@<lab-server-hostname or lab-server-ip-address>
+```
 
 * Update your system and packages
 
@@ -62,11 +66,11 @@ sudo apt -y install cpu-checker
 kvm-ok
 ```
 
-> :warning: **Note:** It is critical your system support virtualization and kvm. If either of those checks fail you will want to verify your system supports virtualization and it is enabled. Some systems will have virtualization disabled by default in the bios so you may need to enable it there, but you will have to do some googling based on your hardware setup.
+> :stop_sign: **Note:** It is critical your system support virtualization and kvm. If either of those checks fail you will want to verify your system supports virtualization and it is enabled. Some systems will have virtualization disabled by default in the bios so you may need to enable it there, but you will have to do some googling based on your hardware setup.
 
 ### SSH Key Setup
 
-Creating SSH keys for your user on your lab server will allow for the automated deployment and configuration of your virtual environments. It is up to you if you want to password protect your SSH key but since this is a lab setup you can just hit enter twice to bypass the need of a password. If you already have SSH keys generated you can just copy those over to the lab server as well to the `~/.ssh` folder of the users home. Some additional documentation can be found in [GiHub Docs - Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
+Creating SSH keys for your user on your lab server will allow for the automated deployment and configuration of your virtual environments. It is optional if you want to password protect your SSH key but since this is a lab setup you can just hit enter twice to bypass the need of a password. If you already have SSH keys generated you can just copy those over to the lab server as well to the `~/.ssh` folder of the users home folder. Additional documentation can be found in [GiHub Docs - Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
 
 * Create an SSH key pair for your local user
 
@@ -93,7 +97,7 @@ ssh-add ~/.ssh/id_ed25519
 EOF
 ```
 
-* Optional: Add your public key to the authorized keys if you want to use the same private key from your local computer, IDE, etc. to connect to the lab. You could also create separate keys for those systems and add them to the lab server with `ssh-copy-id <USER-NAME>@<LAB-IP-ADDRESS>`
+* Optional: Add your public key to the authorized keys if you want to use the same private key to connect to the lab from your local computer, IDE, etc. and then add the public key to your local system.
 
 ```bash
 # Add your public key to the authorized keys to allow for access to the lab system
@@ -102,7 +106,8 @@ cat ~/.ssh/id_ed25519.pub >> .ssh/authorized_keys
 
 * Disable SSH host checking and disable storing server keys
 
-> :stop_sign: **Note: DOING THIS IS A TERRIBLE SECURITY PRACTICE!** I would never recommend doing this but since this is a lab device and we will be creating and destroying VM's most likely with the same server names and IP addresses this will make sure the server keys are not stored when connecting which will cause a connection error if that servers fingerprint changes.
+> :stop_sign: **Note: DOING THIS IS A TERRIBLE SECURITY PRACTICE!**
+> I would never recommend doing this but since this is a lab device and we will be creating and destroying VM's most likely with the same server names and IP addresses this will make sure the server keys are not stored when connecting which will cause a connection error if that servers fingerprint changes.
 
 ```bash
 cat >> ~/.ssh/config << 'EOF'
@@ -172,7 +177,7 @@ lsmod |grep "kvm"
 
 * Add local user account to the kvm and libvirt groups
 
-> :warning: Groups will not show in `id` until logout/in or refresh your profile `. ~/.profile`
+> :warning: **Note:** Groups will not show in `id` until logout/in or refresh your profile
 
 ```bash
 # Add user to kvm/libvirt groups
@@ -182,7 +187,7 @@ sudo usermod -aG kvm,libvirt $USER
 . ~/.profile
 ```
 
-> :bulb: **Note:** The `default` KVM network uses a local virtualized subnet via the `virbr0` virtual interface and NAT which allows external internet access. You will not be able to connect to the virtualized systems from outside your lab server using the `default` network. Creating a bridged network will allow the VMs to obtain an IP address on your local LAN. More information can be read at [NetworkConnectionBridge](https://help.ubuntu.com/community/NetworkConnectionBridge).
+> :bulb: **Note:** The `default` KVM network uses a local virtualized subnet via the `virbr0` virtual interface and NAT which allows external internet access for your VM's through the lab servers IP address. You will not be able to connect to the virtualized systems from outside your lab server using the `default` network. Creating a bridged network will allow the VMs to obtain an IP address on your local LAN. More information can be read at [NetworkConnectionBridge](https://help.ubuntu.com/community/NetworkConnectionBridge).
 
 * Backup the existing network configuration
 
@@ -269,7 +274,7 @@ sudo chown $USER:kvm /var/lib/libvirt/images/terraform
 sudo chmod 775 /var/lib/libvirt/images/terraform
 ```
 
-* Create the a `default` storage pool, start, and set to auto-start on boot
+* Create the `default` storage pool, start it, and set to auto-start on boot
 
 > :bulb: **Note:** You could run these commands without sudo but then the storage pool would be created as a `session` resource instead of a `system` resource. You can read more about the difference between the two resources with Libvirt ([qemu:///system or qemu:///session](https://wiki.libvirt.org/FAQ.html#what-is-the-difference-between-qemu-system-and-qemu-session-which-one-should-i-use)). I'm going to use system so that when we deploy our resources with terraform we won't run into any permisison issues due to possible different users.
 
@@ -280,6 +285,7 @@ sudo virsh pool-build default
 sudo virsh pool-start default
 sudo virsh pool-autostart default
 sudo virsh pool-info default
+
 # Create terraform pool
 sudo virsh pool-define-as terraform dir --target /var/lib/libvirt/images/terraform
 sudo virsh pool-build terraform
@@ -291,7 +297,9 @@ sudo virsh pool-info terraform
 sudo virsh pool-list --all
 ```
 
-### Terraform Installation
+## Terraform Install
+
+[Terraform Documentation](https://www.terraform.io/)
 
 Terraform is an open-source Infrastructure as Code (IaC) tool that allows users to define and provision infrastructure using a declarative language in configuration files. It enables safe and efficient management of both cloud and on-premises resources, including compute, storage, networking, and high-level components like DNS entries. By writing code to describe the desired state of their infrastructure, users can automate provisioning, manage its lifecycle, and ensure consistency and scalability. I'm going to use it to easily spin up different infrastructure environments for our lab. [Terraform install documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
@@ -351,35 +359,55 @@ terraform -install-autocomplete
 reset; exec bash
 ```
 
-## **🎉 At this point your system is setup and ready to `virtualize` 🎉**
+## Ansible Install
 
-> Check out the [Optional Installs](./Optional_Installs.md) for some additional setups for Cockpit, GitHub, VSCode and Ansible to help with your IaC learning.
+[Ansible Documentation](https://docs.ansible.com/)
 
-### [Next Project - Deploy Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md)
+Ansible is a very powerful open-source agentless automation tool. You could in fact do all these same KVM deployments just using Ansible. I am mainly going to use it for installing software and configurations during our deployments as it is easier to deploy and validate these things via Ansible rather than through Terraform.
+
+[Ansible Docs](https://docs.ansible.com/)
+
+* Update your system
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+* Install software properties common
+
+```bash
+sudo apt install software-properties-common -y
+```
+
+* Add Ansible Official PPA
+
+```bash
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+```
+
+* Install Ansible
+
+```bash
+sudo apt update && sudo apt-get -y install ansible
+```
+
+* Validate Ansible is installed
+
+```bash
+ansible --version
+```
+
+### > Check out the [Optional Installs](./Optional_Installs.md) for some additional setups for Cockpit, GitHub, and VSCode.
+
+<h3 style="text-align: center;">🎉 At this point your system is setup and ready to virtualize 🎉</h3>
+
+<h3 style="text-align: center;"><a href="./tf-workspaces/ubuntu_vm/Ubuntu_VM.md">Next Project - Deploy Ubuntu VM with Terraform</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
-
-* [Home](./README.md)
-
-* [Server Setup](./Server_Setup.md)
-
-* [Optional Installs](./Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](./tf-workspaces/microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](./tf-workspaces/dnsmasq_vm/DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
----
-
-#### GitHub Repo Information:
+[Repository Table of Contents](./README.md#table-of-contents)
 
 GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 

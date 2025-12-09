@@ -1,5 +1,4 @@
-# provider: terraform config and libvirt provider
-
+# terraform: https://developer.hashicorp.com/terraform/language/block/terraform#terraform
 # Terraform provider for libvirt: https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs
 terraform {
   required_providers {
@@ -10,6 +9,7 @@ terraform {
   }
 }
 
+# provider: https://developer.hashicorp.com/terraform/language/block/provider
 # Configure the Libvirt provider for local QEMU system resources
 provider "libvirt" {
   uri = "qemu:///system"

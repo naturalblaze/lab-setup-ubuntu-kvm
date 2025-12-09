@@ -1,9 +1,31 @@
-# variable: Variables for ubuntu_vm workspace
+# variable: https://developer.hashicorp.com/terraform/language/block/variable
+variable "local_root_pwd" {
+  description = "local host root password if sudo requires password"
+  type        = string
+  default     = ""
+  sensitive   = true
+
+  validation {
+    condition     = var.local_root_pwd == "" || can(regex("^[\\S]+$", var.local_root_pwd))
+    error_message = "The variable 'local_root_pwd' must not contain any spaces."
+  }
+}
 
 variable "libvirt_pool_path" {
   description = "local path for libvirt storage pool"
   type        = string
   default     = "/var/lib/libvirt/images/terraform/ubuntu_vm"
+}
+
+variable "libvirt_pool_name" {
+  description = "storage pool name for libvirt"
+  type        = string
+  default     = "ubuntu-vm"
+
+  validation {
+    condition     = can(regex("^[0-9A-Za-z_-]+$", var.libvirt_pool_name))
+    error_message = "The variable 'libvirt_pool_name' must only contain alphanumeric characters (a-z, A-Z, 0-9, _-) and no spaces or special characters."
+  }
 }
 
 variable "img_url" {
@@ -25,7 +47,7 @@ variable "hostname" {
 
 variable "packages" {
   description = "linux packages to install, qemu-guest-agent needed for terraform"
-  type        = list(any)
+  type        = list(string)
   default     = ["qemu-guest-agent"]
 }
 
@@ -48,6 +70,17 @@ variable "memory" {
   validation {
     condition     = var.memory > 0
     error_message = "The 'memory' must be a non-negative number (greater than 0)."
+  }
+}
+
+variable "disk_size" {
+  description = "disk size increase for vm (in GB)"
+  type        = number
+  default     = 0
+
+  validation {
+    condition     = var.disk_size >= 0
+    error_message = "The 'disk_size' must be a non-negative number (greater than 0)."
   }
 }
 

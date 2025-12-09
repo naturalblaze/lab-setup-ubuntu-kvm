@@ -2,17 +2,19 @@
 
 Our first Terraform workspace will be the deployment of a single Ubuntu Linux VM. This will not only test our lab setup to ensure everything is working correctly, we can also use this to easily deploy a Linux VM if we want to test something. 
 
-> :bulb: **Note:** I'm separating the Terraform configurations into separate files for the different configuration blocks to help with readability but the file structure and naming patterns are completely up to you. You can have all the configurations in the same `.tf` file if you chose. 
+> :bulb: **Note:** I'm separating the Terraform configurations into separate files for the different configuration blocks to help with readability, but the file structure and naming patterns are completely up to you. You can have all the configurations in the same `.tf` file if you chose.
 
 ## Table of Contents
 
-* [Description](#description)
+* [Description](./Ubuntu_VM.md#description)
 
-* [Environment](#environment)
+* [Environment](./Ubuntu_VM.md#environment)
 
-* [Terraform VM Deployment](#terraform-vm-deployment)
+* [Terraform VM Deployment](./Ubuntu_VM.md#terraform-vm-deployment)
 
-* [Terraform Configuration Walkthrough](#terraform-configurations-walkthrough)
+* [Terraform Configuration Walkthrough](./Ubuntu_VM.md#terraform-configurations-walkthrough)
+
+* [Resources](./Ubuntu_VM.md#resources)
 
 ## Description
 
@@ -34,12 +36,15 @@ To set or override any of the `variables.tf` values for your specific use just r
 
 | Name | Required | Default | Description |
 | ---- | -------- | ------- | ----------- |
+| local_root_pwd | ✅/🚫 | None | Only required if your lab server requires a user password for sudo commands. |
 | libvirt_pool_path | ✅ | /var/lib/libvirt/images/terraform/ubuntu_vm | Local path for the Libvirt storage pool to be created. |
+| libvirt_pool_name | ✅ | ubuntu-vm | Storage pool name for libvirt. |
 | img_url | ✅ | https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img | Linux URL for QCOW2 image. |
 | hostname | ✅ | ubuntu | VM hostname. |
 | packages | ✅ | qemu-guest-agent | Linux packages to install during the cloud-init configuration, `qemu-guest-agent` needed for Terraform to validate the install. |
 | cpus | ✅ | 1 | CPUs allocated to VM. |
 | memory | ✅ | 1024 | Memory allocated to VM. |
+| disk_size | ✅ | 0 | Capacity to add to `qcow2` disk (in GB). |
 | root_pwd | ✅ | rootplease | VM root password. |
 | username | ✅ | ubuntu | VM user to create. |
 | user_pwd | ✅ | userplease | VM user password. |
@@ -140,35 +145,24 @@ terraform destroy
 
 ---
 
-## **🎉 Congratulations you have completed your first IaC deployment using Terraform 🎉**
+<h3 style="text-align: center;">🎉 Congratulations you have completed your first IaC deployment using Terraform 🎉</h3>
 
-### [Next Project - Deploy MicroK8S on a Ubuntu VM](../microk8s_vm/MicroK8S_VM.md)
+<h3 style="text-align: center;"><a href="../microk8s_vm/MicroK8S_VM.md">Next Project - Deploy MicroK8S on a Ubuntu VM</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
+[Repository Table of Contents](../../README.md#table-of-contents)
 
-* [Home](../../README.md)
+GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 
-* [Server Setup](../../Server_Setup.md)
+Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
-* [Optional Installs](../../Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](./Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](../microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](../dnsmasq_vm/DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
-#### Directory Structure:
+Directory Structure:
 
 ```text
 ubuntu_vm/
-├── data.tf
 ├── main.tf
 ├── output.tf
 ├── provider.tf
@@ -181,12 +175,4 @@ ubuntu_vm/
 └── variables.tf
 ```
 
------
-
-#### GitHub Repo Information:
-
-GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
-
-Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
-
------
+---
