@@ -6,13 +6,15 @@ Our first Terraform workspace will be the deployment of a single Ubuntu Linux VM
 
 ## Table of Contents
 
-* [Description](#description)
+* [Description](./Ubuntu_VM.md#description)
 
-* [Environment](#environment)
+* [Environment](./Ubuntu_VM.md#environment)
 
-* [Terraform VM Deployment](#terraform-vm-deployment)
+* [Terraform VM Deployment](./Ubuntu_VM.md#terraform-vm-deployment)
 
-* [Terraform Configuration Walkthrough](#terraform-configurations-walkthrough)
+* [Terraform Configuration Walkthrough](./Ubuntu_VM.md#terraform-configurations-walkthrough)
+
+* [Resources](./Ubuntu_VM.md#resources)
 
 ## Description
 
@@ -143,31 +145,21 @@ terraform destroy
 
 ---
 
-## **🎉 Congratulations you have completed your first IaC deployment using Terraform 🎉**
+<h3 style="text-align: center;">🎉 Congratulations you have completed your first IaC deployment using Terraform 🎉</h3>
 
-### [Next Project - Deploy MicroK8S on a Ubuntu VM](../microk8s_vm/MicroK8S_VM.md)
+<h3 style="text-align: center;"><a href="../microk8s_vm/MicroK8S_VM.md">Next Project - Deploy MicroK8S on a Ubuntu VM</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
+[Repository Table of Contents](../../README.md#table-of-contents)
 
-* [Home](../../README.md)
+GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 
-* [Server Setup](../../Server_Setup.md)
+Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
-* [Optional Installs](../../Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](./Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](../microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](../dnsmasq_vm/DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
-#### Directory Structure:
+Directory Structure:
 
 ```text
 ubuntu_vm/
@@ -182,13 +174,5 @@ ubuntu_vm/
 ├── Ubuntu_VM.md
 └── variables.tf
 ```
-
----
-
-#### GitHub Repo Information:
-
-GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
-
-Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
 ---

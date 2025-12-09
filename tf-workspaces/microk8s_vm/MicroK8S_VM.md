@@ -6,23 +6,25 @@ Our next Terraform workspace will be the deployment of a single Ubuntu Linux VM 
 
 ## Table of Contents
 
-* [Description](#description)
+* [Description](./MicroK8S_VM.md#description)
 
-* [Environment](#environment)
+* [Environment](./MicroK8S_VM.md#environment)
 
-* [Terraform VM Deployment](#terraform-vm-deployment)
+* [Terraform VM Deployment](./MicroK8S_VM.md#terraform-vm-deployment)
 
-* [Terraform Configuration Walkthrough](#terraform-configurations-walkthrough)
+* [Terraform Configuration Walkthrough](./MicroK8S_VM.md#terraform-configurations-walkthrough)
 
-* [Ansible Deployment](#ansible-deployment)
+* [Ansible Deployment](./MicroK8S_VM.md#ansible-deployment)
 
-    * [Ansible Testing](#ansible-testing)
+    * [Ansible Testing](./MicroK8S_VM.md#ansible-testing)
 
-    * [Install MicroK8S](nstall-microk8s)
+    * [Install MicroK8S](./MicroK8S_VM.md#install-microk8s)
 
-    * [Deploy Nginx Container](#deploy-nginx-container)
+    * [Deploy Nginx Container](./MicroK8S_VM.md#deploy-nginx-container)
 
-* [Delete Terraform Resources](#delete-terraform-resources)
+* [Delete Terraform Resources](./MicroK8S_VM.md#delete-terraform-resources)
+
+* [Resources](./MicroK8S_VM.md#resources)
 
 ## Description
 
@@ -223,7 +225,6 @@ kubectl get pods --namespace=nginx-test
 kubectl get services --namespace=nginx-test
 ```
 
-
 ## Delete Terraform Resources
 
 * Destroy Terraform resources
@@ -234,31 +235,21 @@ kubectl get services --namespace=nginx-test
 terraform destroy
 ```
 
-## **🎉 Congratulations you have deployed a VM using Terraform, installed and configured Ansible on your lab server, deployed and configured MicroK8S on your VM, and deployed a NGINX container and service using Ansible 🎉**
+<h3 style="text-align: center;">🎉 Congratulations you have deployed a VM using Terraform, installed and configured Ansible on your lab server, deployed and configured MicroK8S on your VM, and deployed a NGINX container and service using Ansible 🎉</h3>
 
-### [Next Project - Deploy DNS Ubuntu VM with Dnsmasq](../dnsmasq_vm/DNSMasq_VM.md)
+<h3 style="text-align: center;"><a href="../dnsmasq_vm/DNSMasq_VM.md">Next Project - Deploy DNS Ubuntu VM with Dnsmasq</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
+[Repository Table of Contents](../../README.md#table-of-contents)
 
-* [Home](../../README.md)
+GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 
-* [Server Setup](../../Server_Setup.md)
+Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
-* [Optional Installs](../../Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](../ubuntu_vm/Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](./MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](../dnsmasq_vm/DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
-#### Directory Structure:
+Directory Structure:
 
 ```text
 microk8s_vm/
@@ -277,13 +268,5 @@ microk8s_vm/
 ├── terraform.tfvars.example
 └── variables.tf
 ```
-
----
-
-#### GitHub Repo Information:
-
-GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
-
-Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
 ---

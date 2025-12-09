@@ -6,13 +6,15 @@ In this Terraform workspace will be the deploying a single Ubuntu Linux VM and c
 
 ## Table of Contents
 
-* [Description](#description)
+* [Description](./DNSMasq_VM.md#description)
 
-* [Environment](#environment)
+* [Environment](./DNSMasq_VM.md#environment)
 
-* [Terraform VM Deployment](#terraform-vm-deployment)
+* [Terraform VM Deployment](./DNSMasq_VM.md#terraform-vm-deployment)
 
-* [Terraform Configuration Walkthrough](#terraform-configurations-walkthrough)
+* [Terraform Configuration Walkthrough](./DNSMasq_VM.md#terraform-configurations-walkthrough)
+
+* [Resources](./DNSMasq_VM.md#resources)
 
 ## Description
 
@@ -154,31 +156,21 @@ terraform destroy
 
 ---
 
-## **🎉 Congratulations you have deployed and configured a DNS server using Terraform 🎉**
+<h3 style="text-align: center;">🎉 Congratulations you have deployed and configured a DNS server using Terraform 🎉</h3>
 
-### [Next Project - Deploy Ubuntu VM with MicroK8S](../ubuntu_vm_microk8s/Ubuntu_VM_MicroK8S.md)
+<h3 style="text-align: center;"><a href="../docker_vm/Docker_VM.md">Next Project - Deploy Ubuntu VM with Docker</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
+[Repository Table of Contents](../../README.md#table-of-contents)
 
-* [Home](../../README.md)
+GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 
-* [Server Setup](../../Server_Setup.md)
+Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
-* [Optional Installs](../../Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](../ubuntu_vm/Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](../microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](./DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
-#### Directory Structure:
+Directory Structure:
 
 ```text
 dnsmasq_vm/
@@ -194,12 +186,4 @@ dnsmasq_vm/
 └── variables.tf
 ```
 
------
-
-#### GitHub Repo Information:
-
-GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
-
-Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
-
------
+---

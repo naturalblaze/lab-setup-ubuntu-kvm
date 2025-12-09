@@ -4,29 +4,29 @@ This first module will document the setup process I used to build the base serve
 
 ## Table of Contents
 
-* [Technology Documentation](./Server_Setup.md#technology-documentation)
-
 * [Physical Linux Server Setup](./Server_Setup.md#physical-linux-server-setup)
 
-* [SSH Key Setup](./Server_Setup.md#ssh-key-setup)
+  * [SSH Key Setup](./Server_Setup.md#ssh-key-setup)
 
-* [KVM, QEMU, & Libvirt Setup](./Server_Setup.md#kvm-qemu-and-libvirt-setup)
+  * [KVM, QEMU, & Libvirt Setup](./Server_Setup.md#kvm-qemu-and-libvirt-setup)
 
-* [Terraform Installation](./Server_Setup.md#terraform-installation)
+* [Terraform Install](./Server_Setup.md#terraform-install)
 
-## Technology Documentation
+* [Ansible Install](./Server_Setup.md#ansible-install)
 
-* [Ubuntu Server 24.04 LTS Server](https://ubuntu.com/blog/tag/ubuntu-24-04-lts)
+* [Resources](./Server_Setup.md#resources)
 
-* [Linux KVM](https://linux-kvm.org/page/Main_Page)
-
-* [QEMU](https://www.qemu.org/)
-
-* [Libvirt](https://libvirt.org/apps.html)
-
-* [Terraform](https://www.terraform.io/)
 
 ## Physical Linux Server Setup
+
+[Ubuntu Server 24.04 LTS Server Documentation](https://ubuntu.com/blog/tag/ubuntu-24-04-lts)
+
+[Linux KVM Documentation](https://linux-kvm.org/page/Main_Page)
+
+[QEMU Documentation](https://www.qemu.org/)
+
+[Libvirt Documentation](https://libvirt.org/apps.html)
+
 
 * Follow the procedures to create the install media and do the physical install Ubuntu Server on your target hardware: [Ubuntu Server Install Guide](https://ubuntu.com/tutorials/install-ubuntu-server#1-overview)
 
@@ -297,7 +297,9 @@ sudo virsh pool-info terraform
 sudo virsh pool-list --all
 ```
 
-### Terraform Installation
+## Terraform Install
+
+[Terraform Documentation](https://www.terraform.io/)
 
 Terraform is an open-source Infrastructure as Code (IaC) tool that allows users to define and provision infrastructure using a declarative language in configuration files. It enables safe and efficient management of both cloud and on-premises resources, including compute, storage, networking, and high-level components like DNS entries. By writing code to describe the desired state of their infrastructure, users can automate provisioning, manage its lifecycle, and ensure consistency and scalability. I'm going to use it to easily spin up different infrastructure environments for our lab. [Terraform install documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
@@ -357,35 +359,55 @@ terraform -install-autocomplete
 reset; exec bash
 ```
 
-## **🎉 At this point your system is setup and ready to `virtualize` 🎉**
+## Ansible Install
 
-> Check out the [Optional Installs](./Optional_Installs.md) for some additional setups for Cockpit, GitHub, VSCode and Ansible to help with your IaC learning.
+[Ansible Documentation](https://docs.ansible.com/)
 
-### [Next Project - Deploy Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md)
+Ansible is a very powerful open-source agentless automation tool. You could in fact do all these same KVM deployments just using Ansible. I am mainly going to use it for installing software and configurations during our deployments as it is easier to deploy and validate these things via Ansible rather than through Terraform.
+
+[Ansible Docs](https://docs.ansible.com/)
+
+* Update your system
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+* Install software properties common
+
+```bash
+sudo apt install software-properties-common -y
+```
+
+* Add Ansible Official PPA
+
+```bash
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+```
+
+* Install Ansible
+
+```bash
+sudo apt update && sudo apt-get -y install ansible
+```
+
+* Validate Ansible is installed
+
+```bash
+ansible --version
+```
+
+### > Check out the [Optional Installs](./Optional_Installs.md) for some additional setups for Cockpit, GitHub, and VSCode.
+
+<h3 style="text-align: center;">🎉 At this point your system is setup and ready to virtualize 🎉</h3>
+
+<h3 style="text-align: center;"><a href="./tf-workspaces/ubuntu_vm/Ubuntu_VM.md">Next Project - Deploy Ubuntu VM with Terraform</a></h3>
 
 ---
 
-### Resources
+## Resources
 
-#### Repo Table of Contents:
-
-* [Home](./README.md)
-
-* [Server Setup](./Server_Setup.md)
-
-* [Optional Installs](./Optional_Installs.md)
-
-* Terraform Deployments:
-
-    * [Ubuntu VM with Terraform](./tf-workspaces/ubuntu_vm/Ubuntu_VM.md) - Deploy an Ubuntu Linux Server VM.
-
-    * [MicroK8S Single Node Ubuntu VM with Terraform](./tf-workspaces/microk8s_vm/MicroK8S_VM.md) - Deploy an Ubuntu Linux Server VM, install and configure MicroK8S, and deploy your first K8S app with Ansible.
-
-    * [Dnsmasq VM with Terraform](./tf-workspaces/dnsmasq_vm/DNSMasq_VM.md) - Deploy an Ubuntu Linux Server VM and configure Dnsmasq.
-
----
-
-#### GitHub Repo Information:
+[Repository Table of Contents](./README.md#table-of-contents)
 
 GitHub Repository: [lab-setup-ubuntu-kvm](https://github.com/naturalblaze/lab-setup-ubuntu-kvm)
 

@@ -8,15 +8,11 @@ Author: Blaze Bryant [naturalblaze](https://github.com/naturalblaze)
 
 ## Description
 
-I wanted to create a lab environment where I could easily deploy and destroy virtualized technologies using IaC tools for learning, testing, and development purposes. I used a MiniPC I used for a headless Linux base server running Ubuntu 24.04 Server with KVM, QEMU, and Libvirt to support virtualization. You could use different OS', different Linux distributions,  or even desktop for your virtualization server, but we are going to focus on Linux.
+I wanted to create a lab environment where I could easily deploy and destroy virtualized technologies using IaC tools for learning, testing, and development purposes. I used a MiniPC I have for a headless Linux base server running Ubuntu 24.04 Server with KVM, QEMU, and Libvirt to support virtualization. You could use different OS', different Linux distributions, or even desktop for your virtualization server, but we are going to focus on Linux.
 
-### [Next Project - Server Setup](./Server_Setup.md)
+<h3 style="text-align: center;"><a href="./Server_Setup.md">Next - Server Setup</a></h3>
 
----
-
-## Resources
-
-### Repo Table of Contents:
+## Table of Contents:
 
 * [Home](./README.md)
 
@@ -34,7 +30,7 @@ I wanted to create a lab environment where I could easily deploy and destroy vir
 
 ---
 
-### Repo Structure:
+## Repo Structure:
 
 ```text
 lab-setup-ubuntu-kvm/
@@ -52,18 +48,13 @@ lab-setup-ubuntu-kvm/
     │   │   ├── cloud_init.tftpl
     │   │   ├── meta_data.tftpl
     │   │   └── network_config.tftpl
-    │   ├── terraform.tfstate
-    │   ├── terraform.tfstate.backup
-    │   ├── terraform.tfvars
     │   ├── terraform.tfvars.example
     │   └── variables.tf
     ├── microk8s_vm
     │   ├── ansible
-    │   │   ├── inventory.ini
     │   │   ├── microk8s_install.yaml
     │   │   ├── nginx_install.yaml
     │   │   └── ping.yaml
-    │   ├── ansible.cfg
     │   ├── main.tf
     │   ├── MicroK8S_VM.md
     │   ├── output.tf
@@ -72,9 +63,6 @@ lab-setup-ubuntu-kvm/
     │   │   ├── cloud_init.tftpl
     │   │   ├── meta_data.tftpl
     │   │   └── network_config.tftpl
-    │   ├── terraform.tfstate
-    │   ├── terraform.tfstate.backup
-    │   ├── terraform.tfvars
     │   ├── terraform.tfvars.example
     │   └── variables.tf
     └── ubuntu_vm
@@ -85,9 +73,6 @@ lab-setup-ubuntu-kvm/
         │   ├── cloud_init.tftpl
         │   ├── meta_data.tftpl
         │   └── network_config.tftpl
-        ├── terraform.tfstate
-        ├── terraform.tfstate.backup
-        ├── terraform.tfvars
         ├── terraform.tfvars.example
         ├── Ubuntu_VM.md
         └── variables.tf
